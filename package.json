@@ -12,9 +12,7 @@
     "prepublishOnly": "npm run release",
     "release": "npm run build:prod",
     "build:prod": "cross-env NODE_ENV=production rollup -c",
-    "build:dev": "cross-env NODE_ENV=development rollup -c",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build:dev": "cross-env NODE_ENV=development rollup -c"
   },
   "author": "Ahmet Isik",
   "license": "ISC",
@@ -23,10 +21,6 @@
     "@babel/plugin-transform-runtime": "^7.14.5",
     "@babel/preset-env": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
-    "@storybook/addon-actions": "^6.2.9",
-    "@storybook/addon-essentials": "^6.2.9",
-    "@storybook/addon-links": "^6.2.9",
-    "@storybook/react": "^6.2.9",
     "babel-loader": "^8.2.2",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "cross-env": "^7.0.3",
@@ -40,6 +34,7 @@
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.14.5",
     "@babel/plugin-transform-react-jsx-self": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
     "@babel/runtime": "^7.14.6",
     "@rollup/plugin-alias": "^3.1.2",
     "lodash-es": "^4.17.21",

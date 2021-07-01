@@ -7581,29 +7581,28 @@ function App(props) {
     }
 
     setAllComments(commentString.map(function (comment) {
-      console.log('ingredients', comment);
+      console.log('ingredients', comment); //  if reply exists
 
       if (comment[5] !== "0") {
-        var _commentsReplies = [];
+        var commentsReplies = [];
 
         for (var _i in replies) {
           if (replies[_i][5] == comment[4]) {
-            _commentsReplies.unshift(replies[_i]);
-
-            console.log("synchronized", _commentsReplies);
+            commentsReplies.unshift(replies[_i]);
+            console.log("synchronized", commentsReplies);
           }
         }
 
         return a(CommentBox, {
           apiKey: apiKey,
           comment: comment,
-          commentsReplies: _commentsReplies
+          commentsReplies: commentsReplies
         });
       } else {
         return a(CommentBox, {
           apiKey: apiKey,
           comment: comment,
-          commentsReplies: commentsReplies
+          commentsReplies: []
         });
       }
     }));
