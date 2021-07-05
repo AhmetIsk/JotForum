@@ -861,18 +861,6 @@ try {
 
 var regenerator = runtime_1;
 
-function Avatar(props) {
-  var avatarStyle = {
-    borderRadius: "50%",
-    width: "50px"
-  };
-  var url = props.imageURL;
-  return a("img", {
-    style: avatarStyle,
-    src: "".concat(url)
-  });
-}
-
 var DataContext = /*#__PURE__*/createContext(); // This context provider is passed to any component requiring the context
 
 var FetchData = function FetchData(_ref) {
@@ -1437,37 +1425,57 @@ function CommentInput(props) {
   }, "Send"))));
 }
 
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+
+function Avatar(props) {
+  var avatarStyle = {
+    borderRadius: "50%",
+    width: "50px"
+  };
+  var url = props.imageURL;
+  return a("img", {
+    style: avatarStyle,
+    src: "".concat(url)
+  });
+}
+
 function CommentBox(props) {
-  var _useState = useState([]),
-      _useState2 = _slicedToArray(_useState, 2);
-      _useState2[0];
+  var apiKey = props.apiKey;
+  var comment = props.comment;
+
+  var _useState = useState(comment.replies.length > 0),
+      _useState2 = _slicedToArray(_useState, 2),
+      isReplied = _useState2[0];
       _useState2[1];
 
-  var _useState3 = useState(false),
-      _useState4 = _slicedToArray(_useState3, 2),
-      isReplied = _useState4[0];
+  var _useState3 = useState(""),
+      _useState4 = _slicedToArray(_useState3, 2);
+      _useState4[0];
       _useState4[1];
 
-  var apiKey = props.apiKey;
-
-  var _useState5 = useState(""),
+  var _useState5 = useState(false),
       _useState6 = _slicedToArray(_useState5, 2),
-      allComments = _useState6[0];
-      _useState6[1];
-
-  useContext(DataContext);
-  props.allComments;
-  var comment = props.comment;
+      isActive = _useState6[0],
+      setIsActive = _useState6[1];
 
   var _useState7 = useState(false),
       _useState8 = _slicedToArray(_useState7, 2),
-      isActive = _useState8[0],
-      setIsActive = _useState8[1];
-
-  var _useState9 = useState(false),
-      _useState10 = _slicedToArray(_useState9, 2),
-      isReplies = _useState10[0],
-      setIsReplies = _useState10[1];
+      isReplies = _useState8[0],
+      setIsReplies = _useState8[1];
 
   var authorStyle = {
     padding: "10px",
@@ -1519,7 +1527,7 @@ function CommentBox(props) {
     color: "#787878",
     fontWeight: "Bold"
   };
-  return a("div", null, a("div", {
+  return a("div", {
     style: boxStyle
   }, a("div", {
     style: authorStyle
@@ -1559,23 +1567,7 @@ function CommentBox(props) {
     }
   }, a("div", {
     style: reply
-  }, isReplied && a("a", null, "Show Comments ", isReplies ? '-' : '+'))))))), isReplies && allComments);
-}
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
-}
-
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
-}
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+  }, isReplied && a("a", null, "Show Comments ", isReplies ? '-' : '+')))))));
 }
 
 var ReplyDisplayer = function ReplyDisplayer(_ref) {
@@ -1646,44 +1638,64 @@ function ListComments() {
       }
     }
 
-    console.log(commentsRaw);
     var comments = commentsRaw.reduce(function (prev, comment) {
       if (comment.parentId !== 1) {
         var parentIndex = prev.findIndex(function (_ref) {
           var id = _ref.id;
           return id === comment.parentId;
         });
-        console.log(parentIndex);
 
         if (parentIndex === -1) {
           return prev;
         }
 
-        console.log("once", prev[parentIndex].replies);
         prev[parentIndex].replies = [].concat(_toConsumableArray(prev[parentIndex].replies), [comment.id]);
-        console.log("sonra", prev[parentIndex].replies);
       }
 
       return prev;
     }, commentsRaw);
-    console.log(comments);
     setAllComments(comments);
   }, [fetchData.data]);
   useEffect(function () {
     if (Array.isArray(allComments)) {
-      setComments(allComments.map(function (comment) {
+      var mappedComments = allComments.map(function (comment) {
         if (comment.parentId == 1) {
           return a(ReplyDisplayer, {
             comment: comment,
             allComments: allComments
           });
         }
-      }));
+      });
+      setComments(mappedComments);
     }
-    console.log("all comments are here", allComments);
   }, [allComments]);
   return a("div", null, comments);
 }
+
+var copyRightStyle = {
+  color: "rgba(0,0,0,.7)",
+  textShadow: "0 1px rgba(255, 255, 255, 0.1)",
+  textAlign: "center",
+  padding: "30px"
+};
+var header = {
+  margin: "auto",
+  display: "flex",
+  justifyContent: "center",
+  gap: "20px"
+};
+var headingStyle = {
+  color: "#EB8230",
+  fontFamily: "Arial",
+  fontWeight: "Bold",
+  fontStyle: "italic"
+};
+var pStyle = {
+  color: "#787878",
+  fontFamily: "Arial",
+  fontStyle: "italic",
+  padding: "10px"
+};
 
 function App(props) {
   var fetchData = useContext(DataContext);
@@ -1692,35 +1704,20 @@ function App(props) {
   var pageName = props.page;
   var api = new miniJFApi(apiKey);
 
-  var _useState = useState([]),
-      _useState2 = _slicedToArray(_useState, 2);
-      _useState2[0];
-      _useState2[1];
+  var _useState = useState(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      formID = _useState2[0],
+      setFormID = _useState2[1];
 
-  var _useState3 = useState(null),
+  var _useState3 = useState(true),
       _useState4 = _slicedToArray(_useState3, 2),
-      formID = _useState4[0],
-      setFormID = _useState4[1];
+      loading = _useState4[0],
+      setLoading = _useState4[1];
 
   var _useState5 = useState(null),
-      _useState6 = _slicedToArray(_useState5, 2);
-      _useState6[0];
-      _useState6[1];
-
-  var _useState7 = useState(null),
-      _useState8 = _slicedToArray(_useState7, 2);
-      _useState8[0];
-      var setData = _useState8[1];
-
-  var _useState9 = useState(true),
-      _useState10 = _slicedToArray(_useState9, 2),
-      loading = _useState10[0],
-      setLoading = _useState10[1];
-
-  var _useState11 = useState(null),
-      _useState12 = _slicedToArray(_useState11, 2),
-      error = _useState12[0],
-      setError = _useState12[1];
+      _useState6 = _slicedToArray(_useState5, 2),
+      error = _useState6[0],
+      setError = _useState6[1];
 
   useEffect(function () {
     console.log("her zaman create form olusturma pls");
@@ -1762,7 +1759,6 @@ function App(props) {
 
       throw response;
     }).then(function (data) {
-      setData(data);
       fetchData.setData(data);
     })["catch"](function (error) {
       console.error("Error fetching data: ", error);
@@ -1774,30 +1770,6 @@ function App(props) {
   if (loading) return "Loading...";
   if (error) return "Error!";
   var year = new Date().getFullYear();
-  var copyRightStyle = {
-    color: "rgba(0,0,0,.7)",
-    textShadow: "0 1px rgba(255, 255, 255, 0.1)",
-    textAlign: "center",
-    padding: "30px"
-  };
-  var header = {
-    margin: "auto",
-    display: "flex",
-    justifyContent: "center",
-    gap: "20px"
-  };
-  var headingStyle = {
-    color: "#EB8230",
-    fontFamily: "Arial",
-    fontWeight: "Bold",
-    fontStyle: "italic"
-  };
-  var pStyle = {
-    color: "#787878",
-    fontFamily: "Arial",
-    fontStyle: "italic",
-    padding: "10px"
-  };
   return a("div", null, a("div", {
     style: header
   }, a("img", {

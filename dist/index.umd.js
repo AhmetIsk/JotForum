@@ -869,18 +869,6 @@
 
   function C(n,t){for(var e in t)n[e]=t[e];return n}function S(n,t){for(var e in n)if("__source"!==e&&!(e in t))return !0;for(var r in t)if("__source"!==r&&n[r]!==t[r])return !0;return !1}function E(n){this.props=n;}(E.prototype=new p$1).isPureReactComponent=!0,E.prototype.shouldComponentUpdate=function(n,t){return S(this.props,n)||S(this.state,t)};var w=n.__b;n.__b=function(n){n.type&&n.type.__f&&n.ref&&(n.props.ref=n.ref,n.ref=null),w&&w(n);};var A=n.__e;n.__e=function(n,t,e){if(n.then)for(var r,u=t;u=u.__;)if((r=u.__c)&&r.__c)return null==t.__e&&(t.__e=e.__e,t.__k=e.__k),r.__c(n,t);A(n,t,e);};var O=n.unmount;function L(){this.__u=0,this.t=null,this.__b=null;}function U(n){var t=n.__.__c;return t&&t.__e&&t.__e(n)}function F(){this.u=null,this.o=null;}n.unmount=function(n){var t=n.__c;t&&t.__R&&t.__R(),t&&!0===n.__h&&(n.type=null),O&&O(n);},(L.prototype=new p$1).__c=function(n,t){var e=t.__c,r=this;null==r.t&&(r.t=[]),r.t.push(e);var u=U(r.__v),o=!1,i=function(){o||(o=!0,e.__R=null,u?u(l):l());};e.__R=i;var l=function(){if(!--r.__u){if(r.state.__e){var n=r.state.__e;r.__v.__k[0]=function n(t,e,r){return t&&(t.__v=null,t.__k=t.__k&&t.__k.map(function(t){return n(t,e,r)}),t.__c&&t.__c.__P===e&&(t.__e&&r.insertBefore(t.__e,t.__d),t.__c.__e=!0,t.__c.__P=r)),t}(n,n.__c.__P,n.__c.__O);}var t;for(r.setState({__e:r.__b=null});t=r.t.pop();)t.forceUpdate();}},f=!0===t.__h;r.__u++||f||r.setState({__e:r.__b=r.__v.__k[0]}),n.then(i,i);},L.prototype.componentWillUnmount=function(){this.t=[];},L.prototype.render=function(n,t){if(this.__b){if(this.__v.__k){var e=document.createElement("div"),r=this.__v.__k[0].__c;this.__v.__k[0]=function n(t,e,r){return t&&(t.__c&&t.__c.__H&&(t.__c.__H.__.forEach(function(n){"function"==typeof n.__c&&n.__c();}),t.__c.__H=null),null!=(t=C({},t)).__c&&(t.__c.__P===r&&(t.__c.__P=e),t.__c=null),t.__k=t.__k&&t.__k.map(function(t){return n(t,e,r)})),t}(this.__b,e,r.__O=r.__P);}this.__b=null;}var u=t.__e&&a$1(y$1,null,n.fallback);return u&&(u.__h=null),[a$1(y$1,null,t.__e?null:n.children),u]};var M=function(n,t,e){if(++e[1]===e[0]&&n.o.delete(t),n.props.revealOrder&&("t"!==n.props.revealOrder[0]||!n.o.size))for(e=n.u;e;){for(;e.length>3;)e.pop()();if(e[1]<e[0])break;n.u=e=e[2];}};(F.prototype=new p$1).__e=function(n){var t=this,e=U(t.__v),r=t.o.get(n);return r[0]++,function(u){var o=function(){t.props.revealOrder?(r.push(u),M(t,n,r)):u();};e?e(o):o();}},F.prototype.render=function(n){this.u=null,this.o=new Map;var t=w$2(n.children);n.revealOrder&&"b"===n.revealOrder[0]&&t.reverse();for(var e=t.length;e--;)this.o.set(t[e],this.u=[1,0,this.u]);return n.children},F.prototype.componentDidUpdate=F.prototype.componentDidMount=function(){var n=this;this.o.forEach(function(t,e){M(n,e,t);});};var W="undefined"!=typeof Symbol&&Symbol.for&&Symbol.for("react.element")||60103,P=/^(?:accent|alignment|arabic|baseline|cap|clip(?!PathU)|color|fill|flood|font|glyph(?!R)|horiz|marker(?!H|W|U)|overline|paint|stop|strikethrough|stroke|text(?!L)|underline|unicode|units|v|vector|vert|word|writing|x(?!C))[A-Z]/,V=function(n){return ("undefined"!=typeof Symbol&&"symbol"==typeof Symbol()?/fil|che|rad/i:/fil|che|ra/i).test(n)};p$1.prototype.isReactComponent={},["componentWillMount","componentWillReceiveProps","componentWillUpdate"].forEach(function(n){Object.defineProperty(p$1.prototype,n,{configurable:!0,get:function(){return this["UNSAFE_"+n]},set:function(t){Object.defineProperty(this,n,{configurable:!0,writable:!0,value:t});}});});var H=n.event;function Z(){}function Y(){return this.cancelBubble}function $(){return this.defaultPrevented}n.event=function(n){return H&&(n=H(n)),n.persist=Z,n.isPropagationStopped=Y,n.isDefaultPrevented=$,n.nativeEvent=n};var G={configurable:!0,get:function(){return this.class}},J=n.vnode;n.vnode=function(n){var t=n.type,e=n.props,r=e;if("string"==typeof t){for(var u in r={},e){var o=e[u];"value"===u&&"defaultValue"in e&&null==o||("defaultValue"===u&&"value"in e&&null==e.value?u="value":"download"===u&&!0===o?o="":/ondoubleclick/i.test(u)?u="ondblclick":/^onchange(textarea|input)/i.test(u+t)&&!V(e.type)?u="oninput":/^on(Ani|Tra|Tou|BeforeInp)/.test(u)?u=u.toLowerCase():P.test(u)?u=u.replace(/[A-Z0-9]/,"-$&").toLowerCase():null===o&&(o=void 0),r[u]=o);}"select"==t&&r.multiple&&Array.isArray(r.value)&&(r.value=w$2(e.children).forEach(function(n){n.props.selected=-1!=r.value.indexOf(n.props.value);})),"select"==t&&null!=r.defaultValue&&(r.value=w$2(e.children).forEach(function(n){n.props.selected=r.multiple?-1!=r.defaultValue.indexOf(n.props.value):r.defaultValue==n.props.value;})),n.props=r;}t&&e.class!=e.className&&(G.enumerable="className"in e,null!=e.className&&(r.class=e.className),Object.defineProperty(r,"className",G)),n.$$typeof=W,J&&J(n);};var K=n.__r;n.__r=function(n){K&&K(n);};"object"==typeof performance&&"function"==typeof performance.now?performance.now.bind(performance):function(){return Date.now()};
 
-  function Avatar(props) {
-    var avatarStyle = {
-      borderRadius: "50%",
-      width: "50px"
-    };
-    var url = props.imageURL;
-    return a$1("img", {
-      style: avatarStyle,
-      src: "".concat(url)
-    });
-  }
-
   var DataContext = /*#__PURE__*/q(); // This context provider is passed to any component requiring the context
 
   var FetchData = function FetchData(_ref) {
@@ -1445,37 +1433,57 @@
     }, "Send"))));
   }
 
+  function _arrayWithoutHoles(arr) {
+    if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+  }
+
+  function _iterableToArray(iter) {
+    if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+  }
+
+  function _nonIterableSpread() {
+    throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  function _toConsumableArray(arr) {
+    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+  }
+
+  function Avatar(props) {
+    var avatarStyle = {
+      borderRadius: "50%",
+      width: "50px"
+    };
+    var url = props.imageURL;
+    return a$1("img", {
+      style: avatarStyle,
+      src: "".concat(url)
+    });
+  }
+
   function CommentBox(props) {
-    var _useState = l([]),
-        _useState2 = _slicedToArray(_useState, 2);
-        _useState2[0];
+    var apiKey = props.apiKey;
+    var comment = props.comment;
+
+    var _useState = l(comment.replies.length > 0),
+        _useState2 = _slicedToArray(_useState, 2),
+        isReplied = _useState2[0];
         _useState2[1];
 
-    var _useState3 = l(false),
-        _useState4 = _slicedToArray(_useState3, 2),
-        isReplied = _useState4[0];
+    var _useState3 = l(""),
+        _useState4 = _slicedToArray(_useState3, 2);
+        _useState4[0];
         _useState4[1];
 
-    var apiKey = props.apiKey;
-
-    var _useState5 = l(""),
+    var _useState5 = l(false),
         _useState6 = _slicedToArray(_useState5, 2),
-        allComments = _useState6[0];
-        _useState6[1];
-
-    F$1(DataContext);
-    props.allComments;
-    var comment = props.comment;
+        isActive = _useState6[0],
+        setIsActive = _useState6[1];
 
     var _useState7 = l(false),
         _useState8 = _slicedToArray(_useState7, 2),
-        isActive = _useState8[0],
-        setIsActive = _useState8[1];
-
-    var _useState9 = l(false),
-        _useState10 = _slicedToArray(_useState9, 2),
-        isReplies = _useState10[0],
-        setIsReplies = _useState10[1];
+        isReplies = _useState8[0],
+        setIsReplies = _useState8[1];
 
     var authorStyle = {
       padding: "10px",
@@ -1527,7 +1535,7 @@
       color: "#787878",
       fontWeight: "Bold"
     };
-    return a$1("div", null, a$1("div", {
+    return a$1("div", {
       style: boxStyle
     }, a$1("div", {
       style: authorStyle
@@ -1567,23 +1575,7 @@
       }
     }, a$1("div", {
       style: reply
-    }, isReplied && a$1("a", null, "Show Comments ", isReplies ? '-' : '+'))))))), isReplies && allComments);
-  }
-
-  function _arrayWithoutHoles(arr) {
-    if (Array.isArray(arr)) return _arrayLikeToArray(arr);
-  }
-
-  function _iterableToArray(iter) {
-    if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
-  }
-
-  function _nonIterableSpread() {
-    throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-  }
-
-  function _toConsumableArray(arr) {
-    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+    }, isReplied && a$1("a", null, "Show Comments ", isReplies ? '-' : '+')))))));
   }
 
   var ReplyDisplayer = function ReplyDisplayer(_ref) {
@@ -1654,44 +1646,64 @@
         }
       }
 
-      console.log(commentsRaw);
       var comments = commentsRaw.reduce(function (prev, comment) {
         if (comment.parentId !== 1) {
           var parentIndex = prev.findIndex(function (_ref) {
             var id = _ref.id;
             return id === comment.parentId;
           });
-          console.log(parentIndex);
 
           if (parentIndex === -1) {
             return prev;
           }
 
-          console.log("once", prev[parentIndex].replies);
           prev[parentIndex].replies = [].concat(_toConsumableArray(prev[parentIndex].replies), [comment.id]);
-          console.log("sonra", prev[parentIndex].replies);
         }
 
         return prev;
       }, commentsRaw);
-      console.log(comments);
       setAllComments(comments);
     }, [fetchData.data]);
     y(function () {
       if (Array.isArray(allComments)) {
-        setComments(allComments.map(function (comment) {
+        var mappedComments = allComments.map(function (comment) {
           if (comment.parentId == 1) {
             return a$1(ReplyDisplayer, {
               comment: comment,
               allComments: allComments
             });
           }
-        }));
+        });
+        setComments(mappedComments);
       }
-      console.log("all comments are here", allComments);
     }, [allComments]);
     return a$1("div", null, comments);
   }
+
+  var copyRightStyle = {
+    color: "rgba(0,0,0,.7)",
+    textShadow: "0 1px rgba(255, 255, 255, 0.1)",
+    textAlign: "center",
+    padding: "30px"
+  };
+  var header = {
+    margin: "auto",
+    display: "flex",
+    justifyContent: "center",
+    gap: "20px"
+  };
+  var headingStyle = {
+    color: "#EB8230",
+    fontFamily: "Arial",
+    fontWeight: "Bold",
+    fontStyle: "italic"
+  };
+  var pStyle = {
+    color: "#787878",
+    fontFamily: "Arial",
+    fontStyle: "italic",
+    padding: "10px"
+  };
 
   function App(props) {
     var fetchData = F$1(DataContext);
@@ -1700,35 +1712,20 @@
     var pageName = props.page;
     var api = new miniJFApi(apiKey);
 
-    var _useState = l([]),
-        _useState2 = _slicedToArray(_useState, 2);
-        _useState2[0];
-        _useState2[1];
+    var _useState = l(null),
+        _useState2 = _slicedToArray(_useState, 2),
+        formID = _useState2[0],
+        setFormID = _useState2[1];
 
-    var _useState3 = l(null),
+    var _useState3 = l(true),
         _useState4 = _slicedToArray(_useState3, 2),
-        formID = _useState4[0],
-        setFormID = _useState4[1];
+        loading = _useState4[0],
+        setLoading = _useState4[1];
 
     var _useState5 = l(null),
-        _useState6 = _slicedToArray(_useState5, 2);
-        _useState6[0];
-        _useState6[1];
-
-    var _useState7 = l(null),
-        _useState8 = _slicedToArray(_useState7, 2);
-        _useState8[0];
-        var setData = _useState8[1];
-
-    var _useState9 = l(true),
-        _useState10 = _slicedToArray(_useState9, 2),
-        loading = _useState10[0],
-        setLoading = _useState10[1];
-
-    var _useState11 = l(null),
-        _useState12 = _slicedToArray(_useState11, 2),
-        error = _useState12[0],
-        setError = _useState12[1];
+        _useState6 = _slicedToArray(_useState5, 2),
+        error = _useState6[0],
+        setError = _useState6[1];
 
     y(function () {
       console.log("her zaman create form olusturma pls");
@@ -1770,7 +1767,6 @@
 
         throw response;
       }).then(function (data) {
-        setData(data);
         fetchData.setData(data);
       })["catch"](function (error) {
         console.error("Error fetching data: ", error);
@@ -1782,30 +1778,6 @@
     if (loading) return "Loading...";
     if (error) return "Error!";
     var year = new Date().getFullYear();
-    var copyRightStyle = {
-      color: "rgba(0,0,0,.7)",
-      textShadow: "0 1px rgba(255, 255, 255, 0.1)",
-      textAlign: "center",
-      padding: "30px"
-    };
-    var header = {
-      margin: "auto",
-      display: "flex",
-      justifyContent: "center",
-      gap: "20px"
-    };
-    var headingStyle = {
-      color: "#EB8230",
-      fontFamily: "Arial",
-      fontWeight: "Bold",
-      fontStyle: "italic"
-    };
-    var pStyle = {
-      color: "#787878",
-      fontFamily: "Arial",
-      fontStyle: "italic",
-      padding: "10px"
-    };
     return a$1("div", null, a$1("div", {
       style: header
     }, a$1("img", {

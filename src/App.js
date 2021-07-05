@@ -1,28 +1,22 @@
 import { useState, useEffect, useContext } from "react";
 import { h } from 'preact'
-import Avatar from "./Avatar";
 import CommentInput from "./CommentInput";
 import miniJFApi from "./miniJFApi";
 import { DataContext } from "./fetchData";
-import CommentBox from "./CommentBox";
 import ListComments from "./ListComments";
+import {copyRightStyle, header, headingStyle, pStyle} from "./styles/appStyle.js";
 
 export default function App (props) {
-
   const fetchData = useContext(DataContext);
   fetchData.setApiKey(props.apiKey);
   const apiKey = props.apiKey;
   const pageName = props.page;
   const api = new miniJFApi(apiKey);
-  const [comment, setComment] = useState([]);
   const [formID, setFormID] = useState(null); 
-  const [allComments, setAllComments] = useState(null);
-  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("her zaman create form olusturma pls")
     const initialLoad = async () => { 
       const resultFormID = await api.initializeForm(pageName);
       setFormID(resultFormID);
@@ -39,7 +33,6 @@ export default function App (props) {
       throw response;
     })
     .then(data => {
-      setData(data);
       fetchData.setData(data);
     })
     .catch((error) => {
@@ -54,34 +47,6 @@ export default function App (props) {
     if (loading) return "Loading...";
     if (error) return "Error!";
     const year = new Date().getFullYear();
-
-    const copyRightStyle = {
-      color: "rgba(0,0,0,.7)",
-      textShadow: "0 1px rgba(255, 255, 255, 0.1)",
-      textAlign: "center",
-      padding: "30px"
-    }
-
-    const header = {
-      margin: "auto",
-      display: "flex",
-      justifyContent: "center",
-      gap: "20px"
-    }
-
-    const headingStyle = {
-      color: "#EB8230",
-      fontFamily: "Arial",
-      fontWeight: "Bold",
-      fontStyle: "italic",
-    }
-
-    const pStyle = {
-      color: "#787878",
-      fontFamily: "Arial",
-      fontStyle: "italic",
-      padding: "10px"
-    }
 
   return (
     <div>

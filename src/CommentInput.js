@@ -1,7 +1,8 @@
 import { h } from 'preact'
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { DataContext } from './fetchData';
 import miniJFApi from "./miniJFApi";
+import {padding, inputStyle, buttonStyle, inputBox, fontType, divStyle} from "./styles/commentInputStyle";
 
 const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -15,6 +16,7 @@ export default function CommentInput(props) {
     const fetchData = useContext(DataContext);
     const formID = fetchData.formID;
     const parentID = 1;
+    const api = new miniJFApi(props.apiKey);
 
     const [comment, setComment] = useState("");
     const [name, setName] = useState("");
@@ -32,12 +34,9 @@ export default function CommentInput(props) {
         setSelectedFile(e.target.files[0]);
     }
 
-    const api = new miniJFApi(props.apiKey);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const myfile = await toBase64(selectedFile);
-        console.log(selectedFile);
         const data2 = {
             "1": comment,
             "2": name,
@@ -52,48 +51,6 @@ export default function CommentInput(props) {
         setName("");
         setSelectedFile(null);
     } 
-
-    const padding = {
-        padding: "0 20px 0 0",
-    }    
-
-    
-
-    const inputStyle = {
-        display: "flex",
-        width: "100%",
-    }
-    
-    const buttonStyle = {
-        backgroundColor: "#EB8230",
-        width: "100px",
-        height: "30px",
-        borderRadius: "5px",
-        color: "white",
-        cursor: "pointer",
-    }
-
-    const inputBox = {
-        backgroundColor: "#FAFAFA",
-        borderRadius: "5px",
-        padding: "20px",
-        width: "60%",
-        display: "flex",
-        justifyContent: "center",
-
-    }
-
-    const fontType = {
-        padding: "2px",
-        fontFamily: "Arial",
-        fontSize: "1em",
-        weight: "Bold",
-    }
-    const divStyle = {
-        display: "flex",
-        justifyContent: "center",
-        padding: "20px"
-    }
 
     return (
         <div style={inputBox}>

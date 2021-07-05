@@ -10,8 +10,7 @@ export const FetchData = ({ children }) => {
   const [apiKey, setApiKey] = useState("");
   return (
     <DataContext.Provider
-      value={{ data,setData,formID,setFormID, apiKey, setApiKey }}
-    >
+      value={{ data,setData,formID,setFormID, apiKey, setApiKey }}>
       {children}
     </DataContext.Provider>
   );

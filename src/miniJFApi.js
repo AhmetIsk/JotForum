@@ -2,7 +2,6 @@ import { DataContext } from "./fetchData";
 import { useContext } from "react";
 import { h } from 'preact'
 
-
 const objToString = (obj, key, index) => {
   return Object.entries(obj).reduce((prevObj, [valKey, valValue]) => {
     return `${prevObj}${prevObj && '&'}${key}${(index || index === 0) ? `[${index + 1}]` : ''}[${valKey}]=${valValue}`;
@@ -14,7 +13,6 @@ const FormObjectToBody = obj =>
     const value = obj[curr];
     if (Array.isArray(value)) {
       return `${prev}${prev && '&'}${value.reduce((valPrev, valCurr, index) => {
-        console.log(index);
         return `${valPrev}${valPrev && '&'}${objToString(valCurr, curr, index)}`;
       }, '')}`;
     }
@@ -32,7 +30,6 @@ export default class miniJFApi {
   async getForms(options = {}) {
     const { orderby = 'id' } = options;
     const url = `${this.baseURL}user/forms?apikey=${apiKey}&orderby=${orderby}`;
-    console.log(url);
     const response = await fetch(url);
     return response.json();
   }
@@ -119,7 +116,6 @@ export default class miniJFApi {
     };
     const result = await this.createFormIfNotExists(formData);
     this.fetchData.setFormID(result);
-    console.log(result);
     return result;
   }
 
@@ -173,9 +169,7 @@ export default class miniJFApi {
               throw response;
             })
             .then(data2 => {
-              console.log('ben degistim 55555', data2)
               fetchData.setData(data2);
-              console.log(fetchData.data);
             })
             .catch((error) => {
               console.error("Error fetching data: ", error);

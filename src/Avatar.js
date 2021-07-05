@@ -1,11 +1,9 @@
-import { h } from 'preact'
+import { h } from 'preact';
+import { avatarStyle } from "./styles/commentBoxStyle"
 
 export default function Avatar(props) {
-
-    const avatarStyle = {
-        borderRadius: "50%",
-        width: "50px"
-    }
     let url = (props.imageURL);
-    return <img style={avatarStyle} src={`${url}`}></img>;
+    return (
+        <img style={avatarStyle} src={`${url}`}></img>
+    );
 }

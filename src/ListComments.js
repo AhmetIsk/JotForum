@@ -1,17 +1,14 @@
-import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import { h } from 'preact'
 import { DataContext } from "./fetchData";
 import {ReplyDisplayer} from './ReplyDisplayer';
 
 export default function ListComments() {
-
     const fetchData = useContext(DataContext);
     const [allComments, setAllComments] = useState(fetchData.data);
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
-
     const data = fetchData.data;
     let commentsRaw = [];
 
@@ -35,36 +32,29 @@ export default function ListComments() {
         commentsRaw.push(commentObject);
       }
     }
-    console.log(commentsRaw);
+
     const comments = commentsRaw.reduce((prev, comment) => {
       if (comment.parentId !== 1) {
         const parentIndex = prev.findIndex(({ id }) => id === comment.parentId);
-        console.log(parentIndex);
         if (parentIndex === -1) {
           return prev;
         } 
-        console.log("once",prev[parentIndex].replies);
-
         prev[parentIndex].replies = [...prev[parentIndex].replies, comment.id];
-        console.log("sonra",prev[parentIndex].replies);
-
       }
       return prev;
     }, commentsRaw);
-    console.log(comments);
     setAllComments(comments);
     }, [fetchData.data]);
 
     useEffect(() => {
         if (Array.isArray(allComments)) {
-            setComments(allComments.map( (comment) => {
+            const mappedComments = allComments.map( (comment) => {
                 if (comment.parentId == 1) {
                     return <ReplyDisplayer comment={comment} allComments={allComments}/>
                 }
-            }));
+            });
+            setComments(mappedComments);
         }; 
-        console.log("all comments are here", allComments)
-    
     }, [allComments]);
 
     return (
