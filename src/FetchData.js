@@ -7,9 +7,10 @@ export const DataContext = createContext();
 export const FetchData = ({ children }) => {
   const [data, setData] = useState(null);
   const [formID, setFormID] = useState("");
+  const [apiKey, setApiKey] = useState("");
   return (
     <DataContext.Provider
-      value={{ data,setData,formID,setFormID }}
+      value={{ data,setData,formID,setFormID, apiKey, setApiKey }}
     >
       {children}
     </DataContext.Provider>

@@ -1,10 +1,7 @@
 import {h} from 'preact';
 import { useState, useEffect, useContext } from "react";
 import Avatar from './Avatar';
-import ReplyBox from './ReplyBox';
-import ReplyInput from './ReplyInput';
 import { DataContext } from "./fetchData";
-import moment from "moment";
 
 
 function CommentBox(props) {
@@ -12,19 +9,10 @@ function CommentBox(props) {
     const [comment1, setComment1] = useState([]);
     const [isReplied, setIsReplied] = useState(false); 
     const apiKey = props.apiKey;
-    const [allComments, setAllComments] = useState(props.commentsReplies);
+    const [allComments, setAllComments] = useState("");
     const fetchData = useContext(DataContext);
-
-    const commentsReplies = props.commentsReplies;
-    const comment = props.comment;
-    const date = moment().subtract(comment[3]);
-
-
-    
-    if ((commentsReplies).length > 0) {
-        setIsReplied(true);
-    }
-
+    const comments = props.allComments;
+    const comment = props.comment;    
     const [isActive, setIsActive] = useState(false);
     const [isReplies, setIsReplies] = useState(false);
 
@@ -89,27 +77,15 @@ function CommentBox(props) {
 
     }
 
-
-    useEffect(() => {
-        setAllComments( (commentsReplies).map((comment) => {
-            console.log('ingredients',comment)
-                return (
-                <ReplyBox comment={comment}/>
-                )  
-            
-            }
-        ));
-    }, [(props.commentsReplies)]);
-
     return (
         <div>
         <div style={boxStyle}>
             <div style={authorStyle}>
-                <Avatar imageURL={comment[2]}/>
-                <p style={paragraph}>created by {comment[1]} at {date}</p>
+                <Avatar imageURL={comment.avatar}/>
+                <p style={paragraph}>created by {comment.name} at {comment.createdAt}</p>
             </div>
             <div style={commentStyle}>
-                <p > {JSON.stringify(comment[0])} </p>
+                <p > {JSON.stringify(comment.comment)} </p>
             </div>
   
             <div style={reactions}>  
@@ -127,7 +103,7 @@ function CommentBox(props) {
                             <a>Reply {isActive ? '-' : '+'}</a> 
                         </div>
                         </div>
-                        {isActive &&  <ReplyInput repliedCommentID={comment[4]} text="Join the discussion..." apiKey={apiKey} />}
+                        {isActive &&  <ReplyInput repliedCommentID={comment.id} text="Join the discussion..." apiKey={apiKey} />}
                     </div>
                 </div>
                 <div className="accordion">

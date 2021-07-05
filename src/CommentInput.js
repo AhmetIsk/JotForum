@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from 'react';
 import { DataContext } from './fetchData';
 import miniJFApi from "./miniJFApi";
 
-
 const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -11,12 +10,10 @@ const toBase64 = file => new Promise((resolve, reject) => {
     reader.onerror = error => reject(error);
 });
 
-
 export default function CommentInput(props) {
 
     const fetchData = useContext(DataContext);
     const formID = fetchData.formID;
-    const replyNumber = 0;
     const parentID = 1;
 
     const [comment, setComment] = useState("");
@@ -39,20 +36,17 @@ export default function CommentInput(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // props.addComment(comment, name);
         const myfile = await toBase64(selectedFile);
         console.log(selectedFile);
         const data2 = {
             "1": comment,
             "2": name,
             "3": parentID,
+            "4": myfile,
             "5": myfile,
-            "7": replyNumber
         }
 
         api.addSubmission(data2, formID, fetchData);
-        // console.log("data is =>", comment);
-        // setComment(""); // can we use useEffect to clean comment after submission
         console.log("data is sent");     
         setComment("");
         setName("");

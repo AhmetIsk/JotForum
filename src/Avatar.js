@@ -7,7 +7,5 @@ export default function Avatar(props) {
         width: "50px"
     }
     let url = (props.imageURL);
-    // url = url.replace(/\"/g, "");
-    console.log(url)
     return <img style={avatarStyle} src={`${url}`}></img>;
 }
