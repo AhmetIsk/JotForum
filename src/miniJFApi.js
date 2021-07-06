@@ -119,27 +119,6 @@ export default class miniJFApi {
     return result;
   }
 
-  addQuestion() {
-      fetch(`${this.baseURL}form/211726571802958/questions?apikey=${apiKey}`, {
-          "headers": {
-              "accept": "application/json, text/javascript, */*; q=0.01",
-              "accept-language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
-              "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-              "sec-ch-ua": "\" Not;A Brand\";v=\"99\", \"Google Chrome\";v=\"91\", \"Chromium\";v=\"91\"",
-              "sec-ch-ua-mobile": "?0",
-              "sec-fetch-dest": "empty",
-              "sec-fetch-mode": "cors",
-              "sec-fetch-site": "same-origin",
-              "x-requested-with": "XMLHttpRequest"
-          },
-          "referrerPolicy": "strict-origin-when-cross-origin",
-          "body": "question%5Btype%5D=control_textarea",
-          "method": "POST",
-          "mode": "cors",
-          "credentials": "omit"
-          });
-  }
-
   addSubmission(data, formID, fetchData) {
       fetch(`${this.baseURL}form/${formID}/submissions?apikey=${apiKey}`, {
           "headers": {
@@ -170,6 +149,7 @@ export default class miniJFApi {
             })
             .then(data2 => {
               fetchData.setData(data2);
+              console.log(data2);
             })
             .catch((error) => {
               console.error("Error fetching data: ", error);
@@ -179,6 +159,46 @@ export default class miniJFApi {
           .catch((error) => {
             console.error('Error:', error);
           });
-  
   }
-}
+
+  async jotformLogin(username, password) {
+    let userInfo = {
+      username: "",
+      avatar: ""
+    }
+    const datam = await fetch(`${this.baseURL}user/login`, {
+        "headers": {
+          "accept": "application/json, text/javascript, */*; q=0.01",
+          "accept-language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
+          "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "sec-ch-ua": "\" Not;A Brand\";v=\"99\", \"Google Chrome\";v=\"91\", \"Chromium\";v=\"91\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-fetch-dest": "empty",
+          "sec-fetch-mode": "cors",
+          "sec-fetch-site": "same-origin",
+          "x-requested-with": "XMLHttpRequest"
+        },
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "body": `username=${username}&password=${password}&access=readOnly`,
+        "method": "POST",
+        "mode": "cors",
+        "credentials": "omit"
+      })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+          throw response;
+        })
+        .then(data2 => {
+          userInfo.username = data2.content.username;
+          const avatarUrl = data2.content.avatarUrl;
+          const avatar = avatarUrl.split('//');
+          userInfo.avatar = `https://i2.wp.com/${avatar[2]}`; 
+        })
+        .catch((error) => {
+          console.error("Error fetching data: ", error);
+        });
+        return userInfo;
+    }
+  }

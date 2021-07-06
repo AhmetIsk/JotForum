@@ -889,6 +889,11 @@
         apiKey = _useState6[0],
         setApiKey = _useState6[1];
 
+    var _useState7 = l(JSON.parse(localStorage.getItem("JFUserInfo"))),
+        _useState8 = _slicedToArray(_useState7, 2),
+        isLoggedIn = _useState8[0],
+        setIsLoggedIn = _useState8[1];
+
     return a$1(DataContext.Provider, {
       value: {
         data: data,
@@ -896,7 +901,9 @@
         formID: formID,
         setFormID: setFormID,
         apiKey: apiKey,
-        setApiKey: setApiKey
+        setApiKey: setApiKey,
+        isLoggedIn: isLoggedIn,
+        setIsLoggedIn: setIsLoggedIn
       }
     }, children);
   };
@@ -933,7 +940,6 @@
 
       if (Array.isArray(value)) {
         return "".concat(prev).concat(prev && '&').concat(value.reduce(function (valPrev, valCurr, index) {
-          console.log(index);
           return "".concat(valPrev).concat(valPrev && '&').concat(objToString(valCurr, curr, index));
         }, ''));
       }
@@ -976,15 +982,14 @@
                   options = _args.length > 0 && _args[0] !== undefined ? _args[0] : {};
                   _options$orderby = options.orderby, orderby = _options$orderby === void 0 ? 'id' : _options$orderby;
                   url = "".concat(this.baseURL, "user/forms?apikey=").concat(apiKey, "&orderby=").concat(orderby);
-                  console.log(url);
-                  _context.next = 6;
+                  _context.next = 5;
                   return fetch(url);
 
-                case 6:
+                case 5:
                   response = _context.sent;
                   return _context.abrupt("return", response.json());
 
-                case 8:
+                case 7:
                 case "end":
                   return _context.stop();
               }
@@ -1158,10 +1163,9 @@
                 case 3:
                   result = _context4.sent;
                   this.fetchData.setFormID(result);
-                  console.log(result);
                   return _context4.abrupt("return", result);
 
-                case 7:
+                case 6:
                 case "end":
                   return _context4.stop();
               }
@@ -1175,28 +1179,6 @@
 
         return initializeForm;
       }()
-    }, {
-      key: "addQuestion",
-      value: function addQuestion() {
-        fetch("".concat(this.baseURL, "form/211726571802958/questions?apikey=").concat(apiKey), {
-          "headers": {
-            "accept": "application/json, text/javascript, */*; q=0.01",
-            "accept-language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
-            "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "sec-ch-ua": "\" Not;A Brand\";v=\"99\", \"Google Chrome\";v=\"91\", \"Chromium\";v=\"91\"",
-            "sec-ch-ua-mobile": "?0",
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "same-origin",
-            "x-requested-with": "XMLHttpRequest"
-          },
-          "referrerPolicy": "strict-origin-when-cross-origin",
-          "body": "question%5Btype%5D=control_textarea",
-          "method": "POST",
-          "mode": "cors",
-          "credentials": "omit"
-        });
-      }
     }, {
       key: "addSubmission",
       value: function addSubmission(data, formID, fetchData) {
@@ -1230,9 +1212,8 @@
 
             throw response;
           }).then(function (data2) {
-            console.log('ben degistim 55555', data2);
             fetchData.setData(data2);
-            console.log(fetchData.data);
+            console.log(data2);
           })["catch"](function (error) {
             console.error("Error fetching data: ", error);
           });
@@ -1240,138 +1221,254 @@
           console.error('Error:', error);
         });
       }
+    }, {
+      key: "jotformLogin",
+      value: function () {
+        var _jotformLogin = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(username, password) {
+          var userInfo;
+          return regenerator.wrap(function _callee5$(_context5) {
+            while (1) {
+              switch (_context5.prev = _context5.next) {
+                case 0:
+                  userInfo = {
+                    username: "",
+                    avatar: ""
+                  };
+                  _context5.next = 3;
+                  return fetch("".concat(this.baseURL, "user/login"), {
+                    "headers": {
+                      "accept": "application/json, text/javascript, */*; q=0.01",
+                      "accept-language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
+                      "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+                      "sec-ch-ua": "\" Not;A Brand\";v=\"99\", \"Google Chrome\";v=\"91\", \"Chromium\";v=\"91\"",
+                      "sec-ch-ua-mobile": "?0",
+                      "sec-fetch-dest": "empty",
+                      "sec-fetch-mode": "cors",
+                      "sec-fetch-site": "same-origin",
+                      "x-requested-with": "XMLHttpRequest"
+                    },
+                    "referrerPolicy": "strict-origin-when-cross-origin",
+                    "body": "username=".concat(username, "&password=").concat(password, "&access=readOnly"),
+                    "method": "POST",
+                    "mode": "cors",
+                    "credentials": "omit"
+                  }).then(function (response) {
+                    if (response.ok) {
+                      return response.json();
+                    }
+
+                    throw response;
+                  }).then(function (data2) {
+                    userInfo.username = data2.content.username;
+                    var avatarUrl = data2.content.avatarUrl;
+                    var avatar = avatarUrl.split('//');
+                    userInfo.avatar = "https://i2.wp.com/".concat(avatar[2]);
+                  })["catch"](function (error) {
+                    console.error("Error fetching data: ", error);
+                  });
+
+                case 3:
+                  return _context5.abrupt("return", userInfo);
+
+                case 5:
+                case "end":
+                  return _context5.stop();
+              }
+            }
+          }, _callee5, this);
+        }));
+
+        function jotformLogin(_x2, _x3) {
+          return _jotformLogin.apply(this, arguments);
+        }
+
+        return jotformLogin;
+      }()
     }]);
 
     return miniJFApi;
   }();
 
-  var toBase64 = function toBase64(file) {
-    return new Promise(function (resolve, reject) {
-      var reader = new FileReader();
-      reader.readAsDataURL(file);
-
-      reader.onload = function () {
-        return resolve(reader.result);
-      };
-
-      reader.onerror = function (error) {
-        return reject(error);
-      };
-    });
+  var padding = {
+    padding: "0 20px 0 0"
+  };
+  var inputStyle = {
+    display: "flex",
+    width: "100%"
+  };
+  var buttonStyle = {
+    backgroundColor: "#EB8230",
+    width: "100px",
+    height: "30px",
+    borderRadius: "5px",
+    color: "white",
+    cursor: "pointer"
+  };
+  var container = {
+    width: "60%",
+    display: "flex",
+    justifyContent: "space-around"
+  };
+  var inputBox = {
+    backgroundColor: "#FAFAFA",
+    borderRadius: "5px",
+    padding: "20px",
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-around",
+    gap: "30px"
+  };
+  var fontType = {
+    padding: "2px",
+    fontFamily: "Arial",
+    fontSize: "1em",
+    weight: "Bold"
+  };
+  var divStyle = {
+    display: "flex",
+    justifyContent: "center",
+    padding: "20px"
+  };
+  var replyButtonStyle = {
+    backgroundColor: "#787878",
+    width: "100px",
+    height: "30px",
+    borderRadius: "5px",
+    color: "white",
+    cursor: "pointer"
+  };
+  var replyInputBox = {
+    backgroundColor: "#FAFAFA",
+    borderRadius: "5px",
+    padding: "20px",
+    display: "block",
+    width: "80%"
+  };
+  var replyFormGrid = {
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gap: "50px"
   };
 
-  function CommentInput(props) {
-    var fetchData = F$1(DataContext);
-    var formID = fetchData.formID;
-    var parentID = 1;
+  var copyRightStyle = {
+    color: "rgba(0,0,0,.7)",
+    textShadow: "0 1px rgba(255, 255, 255, 0.1)",
+    textAlign: "center",
+    padding: "30px"
+  };
+  var header = {
+    margin: "auto",
+    display: "flex",
+    justifyContent: "center",
+    gap: "20px"
+  };
+  var headingStyle = {
+    color: "#EB8230",
+    fontFamily: "Arial",
+    fontWeight: "Bold",
+    fontStyle: "italic"
+  };
+  var pStyle = {
+    color: "#787878",
+    fontFamily: "Arial",
+    fontStyle: "italic",
+    padding: "10px"
+  };
 
-    var _useState = l(""),
-        _useState2 = _slicedToArray(_useState, 2),
-        comment = _useState2[0],
-        setComment = _useState2[1];
+  var authorStyle = {
+    padding: "10px",
+    display: "flex",
+    gap: "20px"
+  };
+  var boxStyle = {
+    padding: "10px",
+    margin: "10px",
+    backgroundColor: "#FAFAFA",
+    gap: "10px",
+    borderRadius: "5px",
+    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+  };
+  var commentStyle = {
+    backgroundColor: "#FFFFFF",
+    padding: "10px",
+    fontFamily: "Arial",
+    fontSize: "1em",
+    fontStyle: "italic",
+    fontWeight: "lighter"
+  };
+  var reactions = {
+    display: "flex",
+    justifyContent: "flex-end",
+    gap: "30px",
+    cursor: "pointer",
+    fontFamily: "Arial",
+    color: "#787878",
+    fontWeight: "Bold"
+  };
+  var reply = {
+    display: "flex",
+    justifyContent: "flex-start",
+    gap: "30px",
+    cursor: "pointer",
+    fontFamily: "Arial",
+    color: "#787878",
+    fontWeight: "Bold"
+  };
+  var hide = {
+    display: "flex",
+    justifyContent: "flex-start",
+    gap: "30px"
+  };
+  var paragraph = {
+    fontFamily: "Arial",
+    fontSize: "1em",
+    color: "#787878",
+    fontWeight: "Bold"
+  };
+  var avatarStyle = {
+    borderRadius: "50%",
+    width: "50px"
+  };
 
-    var _useState3 = l(""),
-        _useState4 = _slicedToArray(_useState3, 2),
-        name = _useState4[0],
-        setName = _useState4[1];
+  function Avatar(props) {
+    var url = props.imageURL;
+    return a$1("img", {
+      style: avatarStyle,
+      src: "".concat(url)
+    });
+  }
 
-    var _useState5 = l(null),
-        _useState6 = _slicedToArray(_useState5, 2),
-        selectedFile = _useState6[0],
-        setSelectedFile = _useState6[1];
-
-    var handleChange = function handleChange(e) {
-      setComment(e.target.value);
-    };
-
-    var handleNameChange = function handleNameChange(e) {
-      setName(e.target.value);
-    };
-
-    var handleImageChange = function handleImageChange(e) {
-      setSelectedFile(e.target.files[0]);
-    };
-
-    var api = new miniJFApi(props.apiKey);
-
-    var handleSubmit = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(e) {
-        var myfile, data2;
-        return regenerator.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                e.preventDefault();
-                _context.next = 3;
-                return toBase64(selectedFile);
-
-              case 3:
-                myfile = _context.sent;
-                console.log(selectedFile);
-                data2 = {
-                  "1": comment,
-                  "2": name,
-                  "3": parentID,
-                  "4": myfile,
-                  "5": myfile
-                };
-                api.addSubmission(data2, formID, fetchData);
-                console.log("data is sent");
-                setComment("");
-                setName("");
-                setSelectedFile(null);
-
-              case 11:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      return function handleSubmit(_x) {
-        return _ref.apply(this, arguments);
-      };
-    }();
-
-    var padding = {
-      padding: "0 20px 0 0"
-    };
-    var inputStyle = {
-      display: "flex",
-      width: "100%"
-    };
-    var buttonStyle = {
-      backgroundColor: "#EB8230",
-      width: "100px",
-      height: "30px",
-      borderRadius: "5px",
-      color: "white",
-      cursor: "pointer"
-    };
-    var inputBox = {
-      backgroundColor: "#FAFAFA",
-      borderRadius: "5px",
-      padding: "20px",
-      width: "60%",
-      display: "flex",
-      justifyContent: "center"
-    };
-    var fontType = {
-      padding: "2px",
-      fontFamily: "Arial",
-      fontSize: "1em",
-      weight: "Bold"
-    };
-    var divStyle = {
-      display: "flex",
-      justifyContent: "center",
-      padding: "20px"
-    };
+  function LoginForm(props) {
     return a$1("div", {
       style: inputBox
     }, a$1("form", {
-      onSubmit: handleSubmit
+      onSubmit: props.handleSubmit
+    }, a$1("div", {
+      style: authorStyle
+    }, a$1(Avatar, {
+      imageURL: props.avatar
+    }), a$1("p", {
+      style: headingStyle
+    }, "Hey ", props.name, ", Welcome JotFormer! ")), a$1("p", {
+      style: fontType
+    }, "Please type your comment:"), a$1("textarea", {
+      value: props.comment,
+      onChange: props.handleChange,
+      placeholder: props.text,
+      required: true,
+      style: inputStyle
+    }), a$1("div", {
+      style: divStyle
+    }, a$1("button", {
+      style: buttonStyle
+    }, "Send"))));
+  }
+
+  function WithoutLogin(props) {
+    return a$1("div", {
+      style: inputBox
+    }, a$1("form", {
+      onSubmit: props.handleSubmit
     }, a$1("p", {
       style: fontType
     }, "Please pick an image (only image format is accepted):"), a$1("input", {
@@ -1379,19 +1476,17 @@
       type: "file",
       id: "myFile",
       name: "filename",
-      onChange: handleImageChange,
+      onChange: props.handleImageChange,
       accept: "image/*"
     }), a$1("p", {
       style: fontType
     }, "Please type your comment:"), a$1("textarea", {
-      value: comment,
-      onChange: handleChange,
+      value: props.comment,
+      onChange: props.handleChange,
       placeholder: props.text,
       required: true,
       style: inputStyle
-    }), a$1("div", null, a$1("p", {
-      style: fontType
-    }, "Login with"), a$1("br", null), a$1("span", {
+    }), a$1("div", null, a$1("br", null), a$1("span", {
       style: "display: flex"
     }, a$1("a", {
       style: padding,
@@ -1421,8 +1516,8 @@
       style: fontType
     }, "or enter your name:"), a$1("span", null, a$1("input", {
       type: "text",
-      value: name,
-      onChange: handleNameChange,
+      value: props.name,
+      onChange: props.handleNameChange,
       placeholder: "Name",
       required: true,
       style: inputStyle
@@ -1430,7 +1525,267 @@
       style: divStyle
     }, a$1("button", {
       style: buttonStyle
-    }, "Send"))));
+    }, "Send"))), a$1("form", {
+      onSubmit: props.handleLogin
+    }, a$1("p", {
+      style: headingStyle
+    }, "Login with JotForm Account"), a$1("p", {
+      style: fontType
+    }, "Please type your username:"), a$1("input", {
+      type: "text",
+      value: props.username,
+      onChange: props.handleUsernameChange,
+      placeholder: "Name",
+      required: true,
+      style: inputStyle
+    }), a$1("div", null, a$1("div", null, a$1("p", {
+      style: fontType
+    }, "Password:"), a$1("span", null, a$1("input", {
+      type: "password",
+      value: props.password,
+      onChange: props.handlePasswordChange,
+      placeholder: "Name",
+      required: true,
+      style: inputStyle
+    })))), a$1("div", {
+      style: divStyle
+    }, a$1("button", {
+      style: buttonStyle
+    }, "Login"))));
+  }
+
+  function JFUserLogin(_x, _x2, _x3) {
+    return _JFUserLogin.apply(this, arguments);
+  }
+
+  function _JFUserLogin() {
+    _JFUserLogin = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(api, username, password) {
+      var JFUserInfo;
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!localStorage.getItem("JFUserInfo")) {
+                _context.next = 4;
+                break;
+              }
+
+              JFUserInfo = localStorage.getItem("JFUserInfo");
+              _context.next = 8;
+              break;
+
+            case 4:
+              _context.next = 6;
+              return api.jotformLogin(username, password);
+
+            case 6:
+              JFUserInfo = _context.sent;
+
+              if (JFUserInfo.username != null) {
+                localStorage.setItem("JFUserInfo", JSON.stringify(JFUserInfo));
+              }
+
+            case 8:
+              return _context.abrupt("return", JFUserInfo);
+
+            case 9:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _JFUserLogin.apply(this, arguments);
+  }
+
+  var toBase64$1 = function toBase64(file) {
+    return new Promise(function (resolve, reject) {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = function () {
+        return resolve(reader.result);
+      };
+
+      reader.onerror = function (error) {
+        return reject(error);
+      };
+    });
+  };
+
+  function CommentInput(props) {
+    var fetchData = F$1(DataContext);
+    var formID = fetchData.formID;
+    var parentID = 1;
+    var api = new miniJFApi(props.apiKey);
+
+    var _useState = l(""),
+        _useState2 = _slicedToArray(_useState, 2),
+        comment = _useState2[0],
+        setComment = _useState2[1];
+
+    var _useState3 = l(""),
+        _useState4 = _slicedToArray(_useState3, 2),
+        name = _useState4[0],
+        setName = _useState4[1];
+
+    var _useState5 = l(""),
+        _useState6 = _slicedToArray(_useState5, 2),
+        username = _useState6[0],
+        setUserName = _useState6[1];
+
+    var _useState7 = l(""),
+        _useState8 = _slicedToArray(_useState7, 2),
+        password = _useState8[0],
+        setPassword = _useState8[1];
+
+    var _useState9 = l(null),
+        _useState10 = _slicedToArray(_useState9, 2),
+        selectedFile = _useState10[0],
+        setSelectedFile = _useState10[1];
+
+    var _useState11 = l(false),
+        _useState12 = _slicedToArray(_useState11, 2),
+        refresh = _useState12[0],
+        setRefresh = _useState12[1];
+
+    var handleChange = function handleChange(e) {
+      setComment(e.target.value);
+    };
+
+    var handleNameChange = function handleNameChange(e) {
+      setName(e.target.value);
+    };
+
+    var handlePasswordChange = function handlePasswordChange(e) {
+      setPassword(e.target.value);
+    };
+
+    var handleUsernameChange = function handleUsernameChange(e) {
+      setUserName(e.target.value);
+    };
+
+    var handleImageChange = function handleImageChange(e) {
+      setSelectedFile(e.target.files[0]);
+      console.log(selectedFile);
+    };
+
+    var handleSubmit = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(e) {
+        var myfile, data2;
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                e.preventDefault();
+                console.log(selectedFile);
+
+                if (fetchData.isLoggedIn) {
+                  _context.next = 8;
+                  break;
+                }
+
+                _context.next = 5;
+                return toBase64$1(selectedFile);
+
+              case 5:
+                myfile = _context.sent;
+                _context.next = 9;
+                break;
+
+              case 8:
+                myfile = selectedFile;
+
+              case 9:
+                data2 = {
+                  "1": comment,
+                  "2": name,
+                  "3": parentID,
+                  "4": myfile,
+                  "5": myfile
+                };
+                api.addSubmission(data2, formID, fetchData);
+                setComment("");
+                setName("");
+                setRefresh(!refresh);
+
+              case 14:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function handleSubmit(_x) {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    var handleLogin = /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(e) {
+        var JFUserInfo;
+        return regenerator.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                e.preventDefault();
+                _context2.next = 3;
+                return JFUserLogin(api, username, password);
+
+              case 3:
+                JFUserInfo = _context2.sent;
+                fetchData.setIsLoggedIn(JFUserInfo);
+                setComment("");
+                setName(JFUserInfo.username);
+                setSelectedFile(JFUserInfo.avatar);
+
+              case 8:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function handleLogin(_x2) {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+
+    y(function () {
+      var jotformerData = JSON.parse(localStorage.getItem("JFUserInfo"));
+
+      if (jotformerData) {
+        setComment("");
+        fetchData.setIsLoggedIn(jotformerData);
+        setName(jotformerData.username);
+        setSelectedFile(jotformerData.avatar);
+      }
+    }, [refresh]);
+    return a$1("div", {
+      style: container
+    }, !fetchData.isLoggedIn ? a$1(WithoutLogin, {
+      handleSubmit: handleSubmit,
+      handleLogin: handleLogin,
+      handleImageChange: handleImageChange,
+      handleChange: handleChange,
+      comment: comment,
+      text: props.text,
+      handleNameChange: handleNameChange,
+      name: name,
+      handleUsernameChange: handleUsernameChange,
+      username: username,
+      handlePasswordChange: handlePasswordChange,
+      password: password
+    }) : a$1(LoginForm, {
+      name: name,
+      avatar: selectedFile,
+      handleSubmit: handleSubmit,
+      handleChange: handleChange,
+      comment: comment,
+      text: props.text
+    }));
   }
 
   function _arrayWithoutHoles(arr) {
@@ -1449,15 +1804,169 @@
     return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
   }
 
-  function Avatar(props) {
-    var avatarStyle = {
-      borderRadius: "50%",
-      width: "50px"
+  function ReplyWithoutLogin(props) {
+    return a$1("div", {
+      style: replyInputBox
+    }, a$1("form", {
+      onSubmit: props.handleSubmit,
+      style: replyFormGrid
+    }, a$1("div", null, a$1("p", {
+      style: fontType
+    }, "Please pick an image (only image format is accepted):"), a$1("input", {
+      style: inputStyle,
+      type: "file",
+      id: "myFile",
+      name: "filename",
+      onChange: props.handleImageChange,
+      accept: "image/*"
+    })), a$1("div", null, a$1("p", {
+      style: fontType
+    }, "Please type your comment:"), a$1("textarea", {
+      value: props.comment,
+      onChange: props.handleChange,
+      placeholder: props.text,
+      required: true,
+      style: inputStyle
+    })), a$1("div", null, a$1("div", null, a$1("p", {
+      style: fontType
+    }, "or enter your name:"), a$1("span", null, a$1("input", {
+      type: "text",
+      value: props.name,
+      onChange: props.handleNameChange,
+      placeholder: "Name",
+      required: true,
+      style: inputStyle
+    })))), a$1("div", {
+      style: divStyle
+    }, a$1("button", {
+      style: replyButtonStyle
+    }, "Reply"))));
+  }
+
+  var toBase64 = function toBase64(file) {
+    return new Promise(function (resolve, reject) {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = function () {
+        return resolve(reader.result);
+      };
+
+      reader.onerror = function (error) {
+        return reject(error);
+      };
+    });
+  };
+
+  function ReplyInput(props) {
+    var repliedID = props.repliedCommentID;
+    var fetchData = F$1(DataContext);
+    var formID = fetchData.formID;
+
+    var _useState = l(""),
+        _useState2 = _slicedToArray(_useState, 2),
+        comment = _useState2[0],
+        setComment = _useState2[1];
+
+    var _useState3 = l(""),
+        _useState4 = _slicedToArray(_useState3, 2),
+        name = _useState4[0],
+        setName = _useState4[1];
+
+    var _useState5 = l(null),
+        _useState6 = _slicedToArray(_useState5, 2),
+        selectedFile = _useState6[0],
+        setSelectedFile = _useState6[1];
+
+    var api = new miniJFApi(props.apiKey);
+
+    var handleChange = function handleChange(e) {
+      setComment(e.target.value);
     };
-    var url = props.imageURL;
-    return a$1("img", {
-      style: avatarStyle,
-      src: "".concat(url)
+
+    var handleNameChange = function handleNameChange(e) {
+      setName(e.target.value);
+    };
+
+    var handleImageChange = function handleImageChange(e) {
+      setSelectedFile(e.target.files[0]);
+    };
+
+    var handleSubmit = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(e) {
+        var myfile, data2;
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                e.preventDefault();
+                console.log('burasi', fetchData.isLoggedIn);
+
+                if (fetchData.isLoggedIn) {
+                  _context.next = 8;
+                  break;
+                }
+
+                _context.next = 5;
+                return toBase64(selectedFile);
+
+              case 5:
+                myfile = _context.sent;
+                _context.next = 9;
+                break;
+
+              case 8:
+                myfile = selectedFile;
+
+              case 9:
+                data2 = {
+                  "1": comment,
+                  "2": name,
+                  "3": repliedID,
+                  "4": myfile,
+                  "5": myfile
+                };
+                api.addSubmission(data2, formID, fetchData);
+                console.log("data is sent");
+                setComment("");
+                setName("");
+                setSelectedFile(null);
+
+              case 15:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function handleSubmit(_x) {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    y(function () {
+      if (fetchData.isLoggedIn) {
+        setName(fetchData.isLoggedIn.username);
+        setSelectedFile(fetchData.isLoggedIn.avatar);
+        console.log(name);
+      }
+    }, [fetchData.isLoggedIn]);
+    return !fetchData.isLoggedIn ? a$1(ReplyWithoutLogin, {
+      handleSubmit: handleSubmit,
+      handleImageChange: handleImageChange,
+      handleChange: handleChange,
+      comment: comment,
+      text: props.text,
+      handleNameChange: handleNameChange,
+      name: name
+    }) : a$1(LoginForm, {
+      name: name,
+      avatar: selectedFile,
+      handleSubmit: handleSubmit,
+      handleChange: handleChange,
+      comment: comment,
+      text: props.text
     });
   }
 
@@ -1485,56 +1994,6 @@
         isReplies = _useState8[0],
         setIsReplies = _useState8[1];
 
-    var authorStyle = {
-      padding: "10px",
-      display: "flex",
-      gap: "20px"
-    };
-    var boxStyle = {
-      padding: "10px",
-      margin: "10px",
-      backgroundColor: "#FAFAFA",
-      gap: "10px",
-      borderRadius: "5px",
-      boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
-    };
-    var commentStyle = {
-      backgroundColor: "#FFFFFF",
-      padding: "10px",
-      fontFamily: "Arial",
-      fontSize: "1em",
-      fontStyle: "italic",
-      fontWeight: "lighter"
-    };
-    var reactions = {
-      display: "flex",
-      justifyContent: "flex-end",
-      gap: "30px",
-      cursor: "pointer",
-      fontFamily: "Arial",
-      color: "#787878",
-      fontWeight: "Bold"
-    };
-    var reply = {
-      display: "flex",
-      justifyContent: "flex-start",
-      gap: "30px",
-      cursor: "pointer",
-      fontFamily: "Arial",
-      color: "#787878",
-      fontWeight: "Bold"
-    };
-    var hide = {
-      display: "flex",
-      justifyContent: "flex-start",
-      gap: "30px"
-    };
-    var paragraph = {
-      fontFamily: "Arial",
-      fontSize: "1em",
-      color: "#787878",
-      fontWeight: "Bold"
-    };
     return a$1("div", {
       style: boxStyle
     }, a$1("div", {
@@ -1583,14 +2042,12 @@
         allComments = _ref.allComments;
     var fetchData = F$1(DataContext);
     var apiKey = fetchData.apiKey;
-    console.log("once buraya girdim", comment);
     var result = comment.replies.map(function (id) {
       var reply = allComments.find(function (post) {
         if (post.id == id) return true;
       });
       return reply;
     });
-    console.log(result);
     return a$1("div", null, a$1(CommentBox, {
       apiKey: apiKey,
       comment: comment
@@ -1680,31 +2137,6 @@
     return a$1("div", null, comments);
   }
 
-  var copyRightStyle = {
-    color: "rgba(0,0,0,.7)",
-    textShadow: "0 1px rgba(255, 255, 255, 0.1)",
-    textAlign: "center",
-    padding: "30px"
-  };
-  var header = {
-    margin: "auto",
-    display: "flex",
-    justifyContent: "center",
-    gap: "20px"
-  };
-  var headingStyle = {
-    color: "#EB8230",
-    fontFamily: "Arial",
-    fontWeight: "Bold",
-    fontStyle: "italic"
-  };
-  var pStyle = {
-    color: "#787878",
-    fontFamily: "Arial",
-    fontStyle: "italic",
-    padding: "10px"
-  };
-
   function App(props) {
     var fetchData = F$1(DataContext);
     fetchData.setApiKey(props.apiKey);
@@ -1727,9 +2159,8 @@
         error = _useState6[0],
         setError = _useState6[1];
 
+    var year = new Date().getFullYear();
     y(function () {
-      console.log("her zaman create form olusturma pls");
-
       var initialLoad = /*#__PURE__*/function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
           var resultFormID;
@@ -1768,6 +2199,7 @@
         throw response;
       }).then(function (data) {
         fetchData.setData(data);
+        console.log(data);
       })["catch"](function (error) {
         console.error("Error fetching data: ", error);
         setError(error);
@@ -1777,7 +2209,6 @@
     }, [formID]);
     if (loading) return "Loading...";
     if (error) return "Error!";
-    var year = new Date().getFullYear();
     return a$1("div", null, a$1("div", {
       style: header
     }, a$1("img", {

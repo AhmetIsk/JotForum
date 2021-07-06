@@ -8,9 +8,10 @@ export const FetchData = ({ children }) => {
   const [data, setData] = useState(null);
   const [formID, setFormID] = useState("");
   const [apiKey, setApiKey] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem("JFUserInfo")));
   return (
     <DataContext.Provider
-      value={{ data,setData,formID,setFormID, apiKey, setApiKey }}>
+      value={{ data,setData,formID,setFormID, apiKey, setApiKey, isLoggedIn, setIsLoggedIn }}>
       {children}
     </DataContext.Provider>
   );

@@ -32,7 +32,6 @@ export default function ListComments() {
         commentsRaw.push(commentObject);
       }
     }
-
     const comments = commentsRaw.reduce((prev, comment) => {
       if (comment.parentId !== 1) {
         const parentIndex = prev.findIndex(({ id }) => id === comment.parentId);

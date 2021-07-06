@@ -12,7 +12,7 @@
     "prepublishOnly": "npm run release",
     "release": "npm run build:prod",
     "build:prod": "cross-env NODE_ENV=production rollup -c",
-    "build:dev": "cross-env NODE_ENV=development rollup -c"
+    "build:dev": "cross-env NODE_ENV=development rollup -c -w"
   },
   "author": "Ahmet Isik",
   "license": "ISC",
@@ -41,6 +41,7 @@
     "preact": "^10.5.13",
     "preact-compat": "^3.19.0",
     "react": "^17.0.2",
+    "react-bootstrap": "^1.6.1",
     "react-dom": "^17.0.2",
     "request": "^2.88.2"
   }

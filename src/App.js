@@ -15,6 +15,7 @@ export default function App (props) {
   const [formID, setFormID] = useState(null); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const year = new Date().getFullYear();
 
   useEffect(() => {
     const initialLoad = async () => { 
@@ -34,6 +35,7 @@ export default function App (props) {
     })
     .then(data => {
       fetchData.setData(data);
+      console.log(data);
     })
     .catch((error) => {
       console.error("Error fetching data: ", error);
@@ -46,7 +48,6 @@ export default function App (props) {
 
     if (loading) return "Loading...";
     if (error) return "Error!";
-    const year = new Date().getFullYear();
 
   return (
     <div>
@@ -67,7 +68,6 @@ export default function App (props) {
       </div>
       <div>
         <h2 style={pStyle}>Comments</h2>
-        {/* <p> { allComments }</p>  */}
         <ListComments/>
       </div>
       <div>

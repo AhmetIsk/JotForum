@@ -2,6 +2,7 @@ import {h} from 'preact';
 import { useState } from "react";
 import Avatar from './Avatar';
 import { DataContext } from "./fetchData";
+import ReplyInput from './ReplyInput';
 import {authorStyle, boxStyle, commentStyle, reactions, reply, hide, paragraph} from "./styles/commentBoxStyle";
 
 export default function CommentBox(props) {
@@ -21,7 +22,6 @@ export default function CommentBox(props) {
             <div style={commentStyle}>
                 <p > {JSON.stringify(comment.comment)} </p>
             </div>
-  
             <div style={reactions}>  
                 <a>Like {}</a>
                 <a>Dislike {}</a>
