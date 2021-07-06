@@ -11,7 +11,7 @@ export const FetchData = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem("JFUserInfo")));
   return (
     <DataContext.Provider
-      value={{ data,setData,formID,setFormID, apiKey, setApiKey, isLoggedIn, setIsLoggedIn }}>
+      value={{ data, setData, formID, setFormID, apiKey, setApiKey, isLoggedIn, setIsLoggedIn }}>
       {children}
     </DataContext.Provider>
   );

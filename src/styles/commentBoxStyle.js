@@ -25,7 +25,7 @@ export const commentStyle = {
 export const reactions = {
     display: "flex",
     justifyContent: "flex-end",
-    gap: "30px",
+    padding: "10px",
     cursor: "pointer",
     fontFamily: "Arial",
     color: "#787878",

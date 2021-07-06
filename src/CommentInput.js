@@ -96,7 +96,7 @@ export default function CommentInput(props) {
             !fetchData.isLoggedIn ? 
             <WithoutLogin handleSubmit={handleSubmit} handleLogin={handleLogin} handleImageChange={handleImageChange} handleChange={handleChange} comment={comment} text={props.text} handleNameChange={handleNameChange} name={name} handleUsernameChange={handleUsernameChange} username={username} handlePasswordChange={handlePasswordChange} password={password}/>
             :
-            <LoginForm name={name} avatar={selectedFile} handleSubmit={handleSubmit} handleChange={handleChange} comment={comment} text={props.text}/>
+            <LoginForm handleSubmit={handleSubmit} handleChange={handleChange} comment={comment} text={props.text}/>
         }
         </div>
     ) 

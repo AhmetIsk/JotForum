@@ -1399,7 +1399,7 @@
   var reactions = {
     display: "flex",
     justifyContent: "flex-end",
-    gap: "30px",
+    padding: "10px",
     cursor: "pointer",
     fontFamily: "Arial",
     color: "#787878",
@@ -1439,6 +1439,24 @@
   }
 
   function LoginForm(props) {
+    var fetchData = F$1(DataContext);
+
+    var _useState = l(""),
+        _useState2 = _slicedToArray(_useState, 2),
+        name = _useState2[0],
+        setName = _useState2[1];
+
+    var _useState3 = l(null),
+        _useState4 = _slicedToArray(_useState3, 2),
+        selectedFile = _useState4[0],
+        setSelectedFile = _useState4[1];
+
+    y(function () {
+      if (fetchData.isLoggedIn) {
+        setName(fetchData.isLoggedIn.username);
+        setSelectedFile(fetchData.isLoggedIn.avatar);
+      }
+    }, [fetchData.isLoggedIn]);
     return a$1("div", {
       style: inputBox
     }, a$1("form", {
@@ -1446,10 +1464,10 @@
     }, a$1("div", {
       style: authorStyle
     }, a$1(Avatar, {
-      imageURL: props.avatar
+      imageURL: selectedFile
     }), a$1("p", {
       style: headingStyle
-    }, "Hey ", props.name, ", Welcome JotFormer! ")), a$1("p", {
+    }, "Hey ", name, ", Welcome JotFormer! ")), a$1("p", {
       style: fontType
     }, "Please type your comment:"), a$1("textarea", {
       value: props.comment,
@@ -1779,8 +1797,6 @@
       handlePasswordChange: handlePasswordChange,
       password: password
     }) : a$1(LoginForm, {
-      name: name,
-      avatar: selectedFile,
       handleSubmit: handleSubmit,
       handleChange: handleChange,
       comment: comment,
@@ -1878,6 +1894,11 @@
         selectedFile = _useState6[0],
         setSelectedFile = _useState6[1];
 
+    var _useState7 = l(false),
+        _useState8 = _slicedToArray(_useState7, 2),
+        isActive = _useState8[0],
+        setIsActive = _useState8[1];
+
     var api = new miniJFApi(props.apiKey);
 
     var handleChange = function handleChange(e) {
@@ -1952,61 +1973,10 @@
         console.log(name);
       }
     }, [fetchData.isLoggedIn]);
-    return !fetchData.isLoggedIn ? a$1(ReplyWithoutLogin, {
-      handleSubmit: handleSubmit,
-      handleImageChange: handleImageChange,
-      handleChange: handleChange,
-      comment: comment,
-      text: props.text,
-      handleNameChange: handleNameChange,
-      name: name
-    }) : a$1(LoginForm, {
-      name: name,
-      avatar: selectedFile,
-      handleSubmit: handleSubmit,
-      handleChange: handleChange,
-      comment: comment,
-      text: props.text
-    });
-  }
-
-  function CommentBox(props) {
-    var apiKey = props.apiKey;
-    var comment = props.comment;
-
-    var _useState = l(comment.replies.length > 0),
-        _useState2 = _slicedToArray(_useState, 2),
-        isReplied = _useState2[0];
-        _useState2[1];
-
-    var _useState3 = l(""),
-        _useState4 = _slicedToArray(_useState3, 2);
-        _useState4[0];
-        _useState4[1];
-
-    var _useState5 = l(false),
-        _useState6 = _slicedToArray(_useState5, 2),
-        isActive = _useState6[0],
-        setIsActive = _useState6[1];
-
-    var _useState7 = l(false),
-        _useState8 = _slicedToArray(_useState7, 2),
-        isReplies = _useState8[0],
-        setIsReplies = _useState8[1];
-
+    y(function () {
+      setIsActive(false);
+    }, [fetchData.data]);
     return a$1("div", {
-      style: boxStyle
-    }, a$1("div", {
-      style: authorStyle
-    }, a$1(Avatar, {
-      imageURL: comment.avatar
-    }), a$1("p", {
-      style: paragraph
-    }, "created by ", comment.name, " at ", comment.createdAt)), a$1("div", {
-      style: commentStyle
-    }, a$1("p", null, " ", JSON.stringify(comment.comment), " ")), a$1("div", {
-      style: reactions
-    }, a$1("a", null, "Like "), a$1("a", null, "Dislike ")), a$1("div", {
       style: hide
     }, a$1("div", {
       className: "accordion"
@@ -2019,11 +1989,70 @@
       }
     }, a$1("div", {
       style: reply
-    }, a$1("a", null, "Reply ", isActive ? '-' : '+'))), isActive && a$1(ReplyInput, {
+    }, a$1("a", null, "Reply ", isActive ? '-' : '+'))), isActive && (!fetchData.isLoggedIn ? a$1(ReplyWithoutLogin, {
+      handleSubmit: handleSubmit,
+      handleImageChange: handleImageChange,
+      handleChange: handleChange,
+      comment: comment,
+      text: props.text,
+      handleNameChange: handleNameChange,
+      name: name
+    }) : a$1(LoginForm, {
+      handleSubmit: handleSubmit,
+      handleChange: handleChange,
+      comment: comment,
+      text: props.text
+    })))));
+  }
+
+  function CommentBox(props) {
+    var apiKey = props.apiKey;
+    var comment = props.comment;
+    return a$1("div", {
+      style: boxStyle
+    }, a$1("div", {
+      style: authorStyle
+    }, a$1(Avatar, {
+      imageURL: comment.avatar
+    }), a$1("p", {
+      style: paragraph
+    }, "created by ", comment.name, " at ", comment.createdAt)), a$1("div", {
+      style: commentStyle
+    }, a$1("p", null, " ", JSON.stringify(comment.comment), " ")), a$1(ReplyInput, {
       repliedCommentID: comment.id,
       text: "Join the discussion...",
       apiKey: apiKey
-    }))), a$1("div", {
+    }));
+  }
+
+  var ReplyDisplayer = function ReplyDisplayer(_ref) {
+    var comment = _ref.comment,
+        allComments = _ref.allComments;
+    var fetchData = F$1(DataContext);
+    var apiKey = fetchData.apiKey;
+
+    var _useState = l(false),
+        _useState2 = _slicedToArray(_useState, 2),
+        isReplies = _useState2[0],
+        setIsReplies = _useState2[1];
+
+    var _useState3 = l(comment.replies.length > 0),
+        _useState4 = _slicedToArray(_useState3, 2),
+        isReplied = _useState4[0];
+        _useState4[1];
+
+    var result = comment.replies.map(function (id) {
+      var reply = allComments.find(function (post) {
+        if (post.id == id) return true;
+      });
+      return reply;
+    });
+    return a$1("div", {
+      style: boxStyle
+    }, a$1(CommentBox, {
+      apiKey: apiKey,
+      comment: comment
+    }), a$1("div", {
       className: "accordion"
     }, a$1("div", {
       className: "accordion-item"
@@ -2033,25 +2062,8 @@
         return setIsReplies(!isReplies);
       }
     }, a$1("div", {
-      style: reply
-    }, isReplied && a$1("a", null, "Show Comments ", isReplies ? '-' : '+')))))));
-  }
-
-  var ReplyDisplayer = function ReplyDisplayer(_ref) {
-    var comment = _ref.comment,
-        allComments = _ref.allComments;
-    var fetchData = F$1(DataContext);
-    var apiKey = fetchData.apiKey;
-    var result = comment.replies.map(function (id) {
-      var reply = allComments.find(function (post) {
-        if (post.id == id) return true;
-      });
-      return reply;
-    });
-    return a$1("div", null, a$1(CommentBox, {
-      apiKey: apiKey,
-      comment: comment
-    }), result.map(function (reply) {
+      style: reactions
+    }, isReplied && a$1("a", null, " ", isReplies ? 'Hide Comments-' : 'Show Comments+'))))), isReplies && result.map(function (reply) {
       return a$1("div", {
         style: {
           paddingLeft: "5%"

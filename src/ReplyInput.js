@@ -4,6 +4,7 @@ import { DataContext } from './fetchData';
 import LoginForm from './LoginForm';
 import miniJFApi from "./miniJFApi";
 import ReplyWithoutLogin from './ReplyWithoutLogin';
+import {authorStyle, boxStyle, commentStyle, reactions, reply, hide, paragraph} from "./styles/commentBoxStyle";
 
 const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -19,6 +20,7 @@ export default function ReplyInput(props) {
     const [comment, setComment] = useState("");
     const [name, setName] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
+    const [isActive, setIsActive] = useState(false);
     const api = new miniJFApi(props.apiKey);
 
     const handleChange = (e) => {
@@ -65,10 +67,28 @@ export default function ReplyInput(props) {
         }
     }, [fetchData.isLoggedIn] )
 
+    useEffect(() => {
+        setIsActive(false);
+    }, [fetchData.data])
     return (
-        !fetchData.isLoggedIn ?
-        <ReplyWithoutLogin handleSubmit={handleSubmit} handleImageChange={handleImageChange} handleChange={handleChange} comment={comment} text={props.text} handleNameChange={handleNameChange} name={name}/>
-        :
-        <LoginForm name={name} avatar={selectedFile} handleSubmit={handleSubmit} handleChange={handleChange} comment={comment} text={props.text}/>
+        <div style={hide}>
+            <div className="accordion">
+                <div className="accordion-item">
+                    <div
+                    className="accordion-title"
+                    onClick={() => setIsActive(!isActive)}
+                    >
+                    <div style={reply}>  
+                        <a>Reply {isActive ? '-' : '+'}</a> 
+                    </div>
+                    </div>
+                    {isActive && (!fetchData.isLoggedIn ?
+                        <ReplyWithoutLogin handleSubmit={handleSubmit} handleImageChange={handleImageChange} handleChange={handleChange} comment={comment} text={props.text} handleNameChange={handleNameChange} name={name}/>
+                        :
+                        <LoginForm handleSubmit={handleSubmit} handleChange={handleChange} comment={comment} text={props.text}/>
+                    )}
+                </div>
+            </div>
+        </div>
     )
 }
