@@ -1,7 +1,7 @@
 {
-  "name": "react-app-library",
+  "name": "jotforum",
   "version": "1.0.0",
-  "description": "Library creates a react app component",
+  "description": "JotForum is a forum tool that allows people to communicate with each other. Library works after installing via npm and declaring in your html or js files. You need to provide your JotForm api key for initialization. Then, JotForum creates a form with the name which is same with your file name. Each time a user comments or replies, the data is sent via jotform api to the created form. If the form is already created with given name, current submissions (comments & replies) are displayed.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "browser": "dist/index.umd.js",
@@ -44,5 +44,6 @@
     "react-bootstrap": "^1.6.1",
     "react-dom": "^17.0.2",
     "request": "^2.88.2"
-  }
+  },
+  "repository": "https://github.com/AhmetIsk/JotForum.git"
 }

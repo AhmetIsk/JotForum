@@ -54,7 +54,7 @@ export default function App (props) {
     <div style={header}>
       <img style="width: 60px" src="https://www.jotform.com/wepay/assets/img/podo.png?v=1.0.0.0"/>
       <h1 style={headingStyle}>
-       Welcome to JotForum Demo</h1>
+       This blog is created using JotForum</h1>
        </div>
       <p style={pStyle}>
         JotForum is a forum tool that allows people to communicate with each other. Library works after installing via npm and declaring in your html or js files.
