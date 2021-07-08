@@ -74,8 +74,8 @@ export default function App (props) {
         <div style={commentsHeader}>
           <h2 style={pStyle}>Comments</h2>
           <select style={selectStyle} onChange={handleChange}>
-            <option key="order" value="desc" >Oldest Comment First</option>
-            <option key="order" value="asc" >Newest Comment First</option>
+            <option key="order" value="desc" >Newest Comment First</option>
+            <option key="order" value="asc" >Oldest Comment First</option>
           </select>
         </div>
         <ListComments asc={asc}/>

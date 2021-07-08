@@ -49,7 +49,10 @@ This object takes your api key, pageName of the initialized file and div id of t
 This component can be used to embed a Disqus comment into your page.  
 
 ```html
-<script src="your_project_directory\node_modules\jotforum\dist\index.umd.js">
+ // this script directly connects to the github source
+<script src="https://raw.githack.com/AhmetIsk/JotForum/main/dist/index.umd.js"></script>
+ // or you can install npm and then run your html in your local server
+<script src="your_project_directory\node_modules\jotforum\dist\index.umd.js"></script>
 
 <div id="jfcomments"></div>
 

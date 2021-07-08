@@ -2262,10 +2262,10 @@
     }, a$1("option", {
       key: "order",
       value: "desc"
-    }, "Oldest Comment First"), a$1("option", {
+    }, "Newest Comment First"), a$1("option", {
       key: "order",
       value: "asc"
-    }, "Newest Comment First"))), a$1(ListComments, {
+    }, "Oldest Comment First"))), a$1(ListComments, {
       asc: asc
     })), a$1("div", null, a$1("p", {
       style: copyRightStyle
