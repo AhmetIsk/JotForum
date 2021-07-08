@@ -5,6 +5,7 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "browser": "dist/index.umd.js",
+  "htmlFile": "dist/index.html.js",
   "source": "src/index.js",
   "type": "commonjs",
   "scripts": {

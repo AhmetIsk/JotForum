@@ -29,14 +29,14 @@ export default class miniJFApi {
   } 
   async getForms(options = {}) {
     const { orderby = 'id' } = options;
-    const url = `${this.baseURL}user/forms?apikey=${apiKey}&orderby=${orderby}`;
+    const url = `${this.baseURL}user/forms?apikey=${this.apiKey}&orderby=${orderby}`;
     const response = await fetch(url);
     return response.json();
   }
 
   async createForm(data = {}) {
     const body = FormObjectToBody(data);
-    const datam = await fetch(`${this.baseURL}form?apikey=${apiKey}`, {
+    const datam = await fetch(`${this.baseURL}form?apikey=${this.apiKey}`, {
       "headers": {
           "accept": "application/json, text/javascript, */*; q=0.01",
           "accept-language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
@@ -120,7 +120,7 @@ export default class miniJFApi {
   }
 
   addSubmission(data, formID, fetchData) {
-      fetch(`${this.baseURL}form/${formID}/submissions?apikey=${apiKey}`, {
+      fetch(`${this.baseURL}form/${formID}/submissions?apikey=${this.apiKey}`, {
           "headers": {
               "accept": "application/json, text/javascript, */*; q=0.01",
               "accept-language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
@@ -140,7 +140,7 @@ export default class miniJFApi {
           }).then(response => response.json())
           .then(data1 => {
             console.log('Success:', data1);
-            fetch(`${this.baseURL}form/${formID}/submissions?apikey=${apiKey}&orderby=id`)
+            fetch(`${this.baseURL}form/${formID}/submissions?apikey=${this.apiKey}&orderby=id`)
             .then((response) => {
             if (response.ok) {
               return response.json();

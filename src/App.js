@@ -8,10 +8,11 @@ import {copyRightStyle, header, headingStyle, pStyle} from "./styles/appStyle.js
 
 export default function App (props) {
   const fetchData = useContext(DataContext);
-  fetchData.setApiKey(props.apiKey);
   const apiKey = props.apiKey;
+  fetchData.setApiKey(props.apiKey);
   const pageName = props.page;
-  const api = new miniJFApi(apiKey);
+  const api = new miniJFApi(props.apiKey);
+  console.log(apiKey);
   const [formID, setFormID] = useState(null); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,7 +24,7 @@ export default function App (props) {
       setFormID(resultFormID);
     }
     initialLoad();
-  }, []);
+  }, [apiKey]);
 
   useEffect(() => {
     fetch(`https://cors-anywhere.herokuapp.com/https://api.jotform.com/form/${formID}/submissions?apikey=${apiKey}&orderby=id`)
