@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/jotforum.svg)](https://badge.fury.io/js/jotforum "View this package on npm") 
 [![NPM downloads][npm-downloads-image]][npm-downloads-url]
-[![MIT License][license-image]][license-url]
+[![ISC License][license-image]][license-url]
 
 JotForum is a forum tool that uses React.JS and JotForm and allows people to communicate with each other. 
 Library works after installing via npm or yarn in your js or html files. 
@@ -67,17 +67,17 @@ You can also use JotForum in your HTML files. You need to import the source fold
 
 ### License
 
-JotForum is freely distributable under the terms of the [MIT license][license-url].
+JotForum is freely distributable under the terms of the [ISC license][license-url].
 
 ## About JotForum
 
 JotForum is an intern project conducted by me during myinternship at [JotForm]. Special thanks to my mentor [Gökay Okyay].
 
 
-[license-image]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
+[license-image]: https://img.shields.io/badge/license-ISC-blue.svg?style=flat
 [license-url]: LICENSE
 
 [npm-downloads-image]: https://img.shields.io/npm/dm/jotforum.svg?style=flat
-[npm-downloads-url]: https://npmcharts.com/compare/jotforum?minimal=true
+[npm-downloads-url]: https://www.npmjs.com/package/jotforum
 [JotForm]: https://www.jotform.com/
 [Gökay Okyay]: https://github.com/gokayokyay
