@@ -1,6 +1,6 @@
 # JotForum
 
-[![npm version](https://badge.fury.io/js/disqus-react.svg)](https://badge.fury.io/js/disqus-react "View this package on npm") 
+[![npm version](https://badge.fury.io/js/jotforum.svg)](https://badge.fury.io/js/jotforum "View this package on npm") 
 [![NPM downloads][npm-downloads-image]][npm-downloads-url]
 [![MIT License][license-image]][license-url]
 
@@ -31,13 +31,15 @@ $ yarn add jotforum
 This is the component that will load the JotForum comments section.
 
 ```js
-import { JotForum } from 'jotforum';
-
-<JotForum
-    address = {document.querySelector('#id')}
-    apiKey = {yourJotformAPIKey}
-    pageName = 'example'
-/>
+import JotForum from 'jotforum';
+// in your React function use:
+  useEffect(() => {
+    if (forumRef.current) {
+      const forum = new JotForum(forumRef.current, apiKey, pageName);
+    }
+  }, [forumRef.current]);
+// in the function's return, use the following tag
+   <div ref={forumRef} />
 ```
 
 This component takes your api key, pageName of the initialized file and div id of the html file to render react.js 
@@ -75,7 +77,7 @@ JotForum is an intern project conducted by me during myinternship at [JotForm]. 
 [license-image]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
 [license-url]: LICENSE
 
-[npm-downloads-image]: https://img.shields.io/npm/dm/moment.svg?style=flat
-[npm-downloads-url]: https://npmcharts.com/compare/moment?minimal=true
+[npm-downloads-image]: https://img.shields.io/npm/dm/jotforum.svg?style=flat
+[npm-downloads-url]: https://npmcharts.com/compare/jotforum?minimal=true
 [JotForm]: https://www.jotform.com/
 [Gökay Okyay]: https://github.com/gokayokyay
