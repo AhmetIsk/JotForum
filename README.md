@@ -26,7 +26,7 @@ $ yarn add jotforum
 
 ## Usage  
 
-### JotForum as a React Component
+### JotForum on a ReactJS app
 
 This is the component that will load the JotForum comments section.
 
@@ -35,14 +35,14 @@ import JotForum from 'jotforum';
 // in your React function use:
   useEffect(() => {
     if (forumRef.current) {
-      const forum = new JotForum(forumRef.current, apiKey, pageName);
+      const forum = new JotForum(forumRef.current, "yourAPIKey", "pageName");
     }
   }, [forumRef.current]);
 // in the function's return, use the following tag
    <div ref={forumRef} />
 ```
 
-This component takes your api key, pageName of the initialized file and div id of the html file to render react.js 
+This object takes your api key, pageName of the initialized file and div id of the current file with Ref to render react.js 
 
 ### JotForum on HTML file
 

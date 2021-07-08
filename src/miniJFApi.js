@@ -119,7 +119,7 @@ export default class miniJFApi {
     return result;
   }
 
-  addSubmission(data, formID, fetchData) {
+  async addSubmission(data, formID, fetchData) {
       fetch(`${this.baseURL}form/${formID}/submissions?apikey=${this.apiKey}`, {
           "headers": {
               "accept": "application/json, text/javascript, */*; q=0.01",

@@ -25,3 +25,18 @@ export const pStyle = {
   fontStyle: "italic",
   padding: "10px"
 }
+
+export const commentsHeader = {
+  margin: "auto",
+  display: "flex",
+  justifyContent: "space-between",
+  gap: "20px"
+}
+
+export const selectStyle = {
+  color: "#787878",
+  fontFamily: "Arial",
+  fontStyle: "italic",
+  margin: "15px",
+  fontSize: "1.2em"
+}

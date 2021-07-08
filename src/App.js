@@ -4,7 +4,7 @@ import CommentInput from "./CommentInput";
 import miniJFApi from "./miniJFApi";
 import { DataContext } from "./fetchData";
 import ListComments from "./ListComments";
-import {copyRightStyle, header, headingStyle, pStyle} from "./styles/appStyle.js";
+import {copyRightStyle, header, headingStyle, pStyle, commentsHeader, selectStyle} from "./styles/appStyle.js";
 
 export default function App (props) {
   const fetchData = useContext(DataContext);
@@ -16,8 +16,8 @@ export default function App (props) {
   const [formID, setFormID] = useState(null); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [asc, setAsc] = useState("desc");
   const year = new Date().getFullYear();
-
   useEffect(() => {
     const initialLoad = async () => { 
       const resultFormID = await api.initializeForm(pageName);
@@ -25,9 +25,12 @@ export default function App (props) {
     }
     initialLoad();
   }, [apiKey]);
-
+  const handleChange = (e) => {
+    e.preventDefault();
+    setAsc(e.currentTarget.value);
+  }
   useEffect(() => {
-    fetch(`https://api.jotform.com/form/${formID}/submissions?apikey=${apiKey}&orderby=id`)
+    fetch(`https://api.jotform.com/form/${formID}/submissions?apikey=${apiKey}&orderby=id,${asc}`)
     .then((response) => {
     if (response.ok) {
       return response.json();
@@ -45,7 +48,7 @@ export default function App (props) {
     .finally(() => {
       setLoading(false);
     });
-    }, [formID]);
+    }, [formID, asc]);
 
     if (loading) return "Loading...";
     if (error) return "Error!";
@@ -68,8 +71,14 @@ export default function App (props) {
         <CommentInput text="Join the discussion..." apiKey={apiKey} formID={formID}/>
       </div>
       <div>
-        <h2 style={pStyle}>Comments</h2>
-        <ListComments/>
+        <div style={commentsHeader}>
+          <h2 style={pStyle}>Comments</h2>
+          <select style={selectStyle} onChange={handleChange}>
+            <option key="order" value="desc" >Oldest Comment First</option>
+            <option key="order" value="asc" >Newest Comment First</option>
+          </select>
+        </div>
+        <ListComments asc={asc}/>
       </div>
       <div>
         <p style={copyRightStyle}>© Copyright {year} JotForm. All rights reserved.</p>

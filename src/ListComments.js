@@ -3,7 +3,7 @@ import { h } from 'preact'
 import { DataContext } from "./fetchData";
 import {ReplyDisplayer} from './ReplyDisplayer';
 
-export default function ListComments() {
+export default function ListComments(props) {
     const fetchData = useContext(DataContext);
     const [allComments, setAllComments] = useState(fetchData.data);
     const [comments, setComments] = useState([]);
@@ -11,7 +11,6 @@ export default function ListComments() {
     useEffect(() => {
     const data = fetchData.data;
     let commentsRaw = [];
-
     for (let i in data.content) {
       if (data.content[i].status === "ACTIVE" ) {
         let commentObject = {
