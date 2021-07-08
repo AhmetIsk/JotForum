@@ -27,7 +27,7 @@ export default function App (props) {
   }, [apiKey]);
 
   useEffect(() => {
-    fetch(`https://cors-anywhere.herokuapp.com/https://api.jotform.com/form/${formID}/submissions?apikey=${apiKey}&orderby=id`)
+    fetch(`https://api.jotform.com/form/${formID}/submissions?apikey=${apiKey}&orderby=id`)
     .then((response) => {
     if (response.ok) {
       return response.json();

@@ -2204,7 +2204,7 @@
       initialLoad();
     }, [apiKey]);
     y(function () {
-      fetch("https://cors-anywhere.herokuapp.com/https://api.jotform.com/form/".concat(formID, "/submissions?apikey=").concat(apiKey, "&orderby=id")).then(function (response) {
+      fetch("https://api.jotform.com/form/".concat(formID, "/submissions?apikey=").concat(apiKey, "&orderby=id")).then(function (response) {
         if (response.ok) {
           return response.json();
         }
