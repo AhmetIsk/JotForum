@@ -954,7 +954,7 @@
 
       _classCallCheck(this, miniJFApi);
 
-      this.baseURL = options.baseURL || 'https://cors-anywhere.herokuapp.com/https://api.jotform.com/';
+      this.baseURL = options.baseURL || 'https://api.jotform.com/';
       this.apiKey = apiKey;
       this.fetchData = F$1(DataContext);
     }
