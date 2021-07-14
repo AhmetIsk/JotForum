@@ -8,6 +8,17 @@
   "htmlFile": "dist/index.html.js",
   "source": "src/index.js",
   "type": "commonjs",
+  "keywords": [
+    "jotform",
+    "rollup",
+    "database",
+    "react",
+    "form",
+    "forum",
+    "discussion",
+    "browser",
+    "comment"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublishOnly": "npm run release",
