@@ -68,6 +68,10 @@ This component can be used to embed a Disqus comment into your page.
 
 You can also use JotForum in your HTML files. You need to import the source folder in script after initializing jotforum via yarn or npm. Then, by giving your JotForm API key, you can initialize JotForum in your HTML file within the given div tag as in example code. Created form will take your current HTML file's name.
 
+
+### Example Usage
+JotForum is implemented to [Ahmet Işık Art Gallery Website](https://ahmetisk.github.io/Personal-Website/index.html) that is created with using HTML, CSS and JS. Normally, a discussion section is almost impossible without a database. However thanks to JotForum, 
+you can see the discussions below the oil colors and acrylic colors sections.  
 ### License
 
 JotForum is freely distributable under the terms of the [ISC license][license-url].
