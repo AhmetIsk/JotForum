@@ -1,6 +1,6 @@
 import { h } from 'preact'
 import { headingStyle } from './styles/appStyle';
-import { inputStyle, buttonStyle, inputBox, fontType, divStyle} from "./styles/commentInputStyle";
+import { inputStyle, buttonStyle, inputBox, fontType, divStyle, mobileReplyInputBox} from "./styles/commentInputStyle";
 import Avatar from './Avatar';
 import { authorStyle } from './styles/commentBoxStyle';
 import { useContext, useEffect, useState } from 'react';
@@ -19,7 +19,7 @@ export default function LoginForm(props) {
     }, [fetchData.isLoggedIn] )
 
     return (
-        <div style={inputBox}>
+        <div style={fetchData.isTabletOrMobile ? mobileReplyInputBox :  inputBox}>
             <form onSubmit={props.handleSubmit}>
                 <div style={authorStyle}>
                     <Avatar imageURL={selectedFile}/>

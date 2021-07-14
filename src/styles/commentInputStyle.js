@@ -16,7 +16,7 @@ export const buttonStyle = {
     cursor: "pointer",
 }
 export const container = {
-    width: "60%",
+    width: "100%",
     display: "flex",
     justifyContent: "space-around",
 }
@@ -31,11 +31,21 @@ export const inputBox = {
     gap: "30px",
 }
 
+export const MobileInputBox = {
+    backgroundColor: "#FAFAFA",
+    borderRadius: "5px",
+    padding: "20px",
+    width: "100%",
+    display: "inlineBlock",
+    gap: "30px",
+}
+
 export const fontType = {
-    padding: "2px",
+    margin: "2px",
     fontFamily: "Arial",
     fontSize: "1em",
-    weight: "Bold",
+    fontWeight: "Bold",
+    color: "#595959",
 }
 
 export const divStyle = {
@@ -58,11 +68,24 @@ export const replyInputBox = {
     borderRadius: "5px",
     padding: "20px",
     display: "block",
-    width: "80%",
+    width: "100%",
 }
+
+export const mobileReplyInputBox = {
+    backgroundColor: "#FAFAFA",
+    borderRadius: "5px",
+    padding: "20px",
+    display: "inlineBlock",
+    width: "100%",
+}
+
 
 export const replyFormGrid = {
     display: "grid",
     gridTemplateColumns: "repeat(3, 1fr)",
-    gap: "50px",
+}
+
+export const MobileReply = {
+    float: "center",
+    margin: "0 auto"
 }

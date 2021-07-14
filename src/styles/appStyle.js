@@ -12,6 +12,12 @@ export const header = {
   gap: "20px"
 }
 
+export const mobileHeader = {
+  margin: "auto",
+  display: "inlineBlock",
+  paddingBottom: "10px"
+}
+
 export const headingStyle = {
   color: "#EB8230",
   fontFamily: "Arial",
@@ -37,6 +43,5 @@ export const selectStyle = {
   color: "#787878",
   fontFamily: "Arial",
   fontStyle: "italic",
-  margin: "15px",
-  fontSize: "1.2em"
+  fontSize: "1em",
 }

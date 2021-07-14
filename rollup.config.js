@@ -3,6 +3,7 @@ import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import resolve from 'rollup-plugin-node-resolve';
 import alias from '@rollup/plugin-alias';
+import external from "rollup-plugin-peer-deps-external";
 
 import pkg from './package.json';
 
@@ -43,6 +44,9 @@ export default [{
               'node_modules/process-es6/**',
             ],
       }),
+      external({
+        includeDependencies: true
+      }),
     ],
 },
   {
@@ -80,6 +84,10 @@ export default [{
               'node_modules/process-es6/**',
             ],
       }),
+      external({
+        includeDependencies: true
+      }),
+
     ],
 },
   {
@@ -115,6 +123,9 @@ export default [{
               exclude: [
                 'node_modules/process-es6/**',
               ],
+            namedExports: {
+              'react-responsive' : ['useMediaQuery']
+            }
         }),
       ],
   },
@@ -126,33 +137,36 @@ export default [{
       name: 'JotForum'
     },
     plugins: [
-        alias({
-          entries: [
-            { find: 'react', replacement: 'preact/compat' },
-            { find: 'react-dom', replacement: 'preact/compat' }
-          ]
-        }),
-        replace({
-          "process.env.NODE_ENV": JSON.stringify(NODE_ENV)
-        }),
-        babel({
-          runtimeHelpers: true,
-          exclude: "node_modules/**"
-        }),
-        resolve({
-            include: ['node_modules/**'],
-            browser: true
-        }),
-        commonjs({
-          ignoreGlobal: true,
-            include: [
-                'node_modules/**',
-              ],
-              exclude: [
-                'node_modules/process-es6/**',
-              ],
-        }),
-      ],
-  }
+      alias({
+        entries: [
+          { find: 'react', replacement: 'preact/compat' },
+          { find: 'react-dom', replacement: 'preact/compat' }
+        ]
+      }),
+      replace({
+        "process.env.NODE_ENV": JSON.stringify(NODE_ENV)
+      }),
+      babel({
+        runtimeHelpers: true,
+        exclude: "node_modules/**"
+      }),
+      resolve({
+          include: ['node_modules/**'],
+          browser: true
+      }),
+      commonjs({
+        ignoreGlobal: true,
+          include: [
+              'node_modules/**',
+            ],
+            exclude: [
+              'node_modules/process-es6/**',
+            ],
+          namedExports: {
+            'react-responsive' : ['useMediaQuery']
+          }
+      }),
+    ],
+}
 
 ];

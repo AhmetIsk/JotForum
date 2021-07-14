@@ -2,7 +2,8 @@ import { useContext, useState } from "react";
 import { h } from 'preact';
 import CommentBox from './CommentBox';
 import { DataContext } from "./fetchData";
-import { boxStyle, reactions } from "./styles/commentBoxStyle";
+import { boxStyle, mobileBoxStyle, reactions } from "./styles/commentBoxStyle";
+import { useMediaQuery } from "react-responsive";
 
 export const  ReplyDisplayer = ({comment, allComments}) => {
     const fetchData = useContext(DataContext);
@@ -19,7 +20,7 @@ export const  ReplyDisplayer = ({comment, allComments}) => {
     });
 
     return (
-        <div style={boxStyle}>
+        <div style={fetchData.isTabletOrMobile ? mobileBoxStyle : boxStyle}>
             <CommentBox apiKey={apiKey} comment={comment}/>
             <div className="accordion">
                     <div className="accordion-item">
@@ -36,7 +37,7 @@ export const  ReplyDisplayer = ({comment, allComments}) => {
                     </div>
                 </div>
             {isReplies && (result).map((reply) => (
-                <div style={{paddingLeft: "5%"}}>
+                <div style={!fetchData.isTabletOrMobile && {paddingLeft: "5%"}}>
                     <ReplyDisplayer comment={reply} allComments={allComments}/>    
                 </div>
             ))

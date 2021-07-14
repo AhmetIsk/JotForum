@@ -4,7 +4,7 @@ import CommentInput from "./CommentInput";
 import miniJFApi from "./miniJFApi";
 import { DataContext } from "./fetchData";
 import ListComments from "./ListComments";
-import {copyRightStyle, header, headingStyle, pStyle, commentsHeader, selectStyle} from "./styles/appStyle.js";
+import {copyRightStyle, header, headingStyle, pStyle, commentsHeader, selectStyle, mobileHeader} from "./styles/appStyle.js";
 
 export default function App (props) {
   const fetchData = useContext(DataContext);
@@ -56,9 +56,9 @@ export default function App (props) {
   return (
     <div>
     <div style={header}>
-      <img style="width: 60px" src="https://www.jotform.com/wepay/assets/img/podo.png?v=1.0.0.0"/>
-      <h1 style={headingStyle}>
-       This blog is created using JotForum</h1>
+      { !fetchData.isTabletOrMobile && <img style="width: 40px; height: 50px;" src="https://www.jotform.com/wepay/assets/img/podo.png?v=1.0.0.0"/>}
+      <h3 style={headingStyle}>
+       This blog is created using JotForum</h3>
        </div>
       <p style={pStyle}>
         JotForum is a forum tool that allows people to communicate with each other. Library works after installing via npm and declaring in your html or js files.
@@ -71,7 +71,7 @@ export default function App (props) {
         <CommentInput text="Join the discussion..." apiKey={apiKey} formID={formID}/>
       </div>
       <div>
-        <div style={commentsHeader}>
+        <div style={fetchData.isTabletOrMobile ? mobileHeader : commentsHeader}>
           <h2 style={pStyle}>Comments</h2>
           <select style={selectStyle} onChange={handleChange}>
             <option key="order" value="desc" >Newest Comment First</option>

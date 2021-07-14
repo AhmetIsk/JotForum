@@ -20,7 +20,7 @@ const FormObjectToBody = obj =>
   }, ''));
 export default class miniJFApi {
   constructor(apiKey, options = {}) {
-    this.baseURL = options.baseURL || 'https://cors-anywhere.herokuapp.com/https://api.jotform.com/';
+    this.baseURL = options.baseURL || 'https://api.jotform.com/';
     this.apiKey = apiKey;
     this.fetchData = useContext(DataContext);
   };
@@ -37,18 +37,6 @@ export default class miniJFApi {
   async createForm(data = {}) {
     const body = FormObjectToBody(data);
     const datam = await fetch(`${this.baseURL}form?apikey=${this.apiKey}`, {
-      "headers": {
-          "accept": "application/json, text/javascript, */*; q=0.01",
-          "accept-language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
-          "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-          "sec-ch-ua": "\" Not;A Brand\";v=\"99\", \"Google Chrome\";v=\"91\", \"Chromium\";v=\"91\"",
-          "sec-ch-ua-mobile": "?0",
-          "sec-fetch-dest": "empty",
-          "sec-fetch-mode": "cors",
-          "sec-fetch-site": "same-origin",
-          "x-requested-with": "XMLHttpRequest"
-      },
-      "referrerPolicy": "strict-origin-when-cross-origin",
       body,
       "method": "POST",
       "mode": "cors",
@@ -121,18 +109,6 @@ export default class miniJFApi {
 
   async addSubmission(data, formID, fetchData) {
       fetch(`${this.baseURL}form/${formID}/submissions?apikey=${this.apiKey}`, {
-          "headers": {
-              "accept": "application/json, text/javascript, */*; q=0.01",
-              "accept-language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
-              "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-              "sec-ch-ua": "\" Not;A Brand\";v=\"99\", \"Google Chrome\";v=\"91\", \"Chromium\";v=\"91\"",
-              "sec-ch-ua-mobile": "?0",
-              "sec-fetch-dest": "empty",
-              "sec-fetch-mode": "cors",
-              "sec-fetch-site": "same-origin",
-              "x-requested-with": "XMLHttpRequest"
-          },
-          "referrerPolicy": "strict-origin-when-cross-origin",
           "body": JSON.stringify(data),
           "method": "POST",
           "mode": "cors",
@@ -167,18 +143,6 @@ export default class miniJFApi {
       avatar: ""
     }
     const datam = await fetch(`${this.baseURL}user/login`, {
-        "headers": {
-          "accept": "application/json, text/javascript, */*; q=0.01",
-          "accept-language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
-          "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-          "sec-ch-ua": "\" Not;A Brand\";v=\"99\", \"Google Chrome\";v=\"91\", \"Chromium\";v=\"91\"",
-          "sec-ch-ua-mobile": "?0",
-          "sec-fetch-dest": "empty",
-          "sec-fetch-mode": "cors",
-          "sec-fetch-site": "same-origin",
-          "x-requested-with": "XMLHttpRequest"
-        },
-        "referrerPolicy": "strict-origin-when-cross-origin",
         "body": `username=${username}&password=${password}&access=readOnly`,
         "method": "POST",
         "mode": "cors",

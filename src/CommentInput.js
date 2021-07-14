@@ -74,7 +74,6 @@ export default function CommentInput(props) {
     const handleLogin = async (e) => {
         e.preventDefault();
         let JFUserInfo = await JFUserLogin(api, username, password);
-        console.log("arkadasım burası null olması lazım", JFUserInfo);
         if (JFUserInfo.username) 
             fetchData.setIsLoggedIn(JFUserInfo);
         else

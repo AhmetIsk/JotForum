@@ -1,10 +1,13 @@
 import { h } from 'preact'
+import { useContext } from 'react';
+import { DataContext } from './fetchData';
 import { headingStyle } from './styles/appStyle';
-import {padding, inputStyle, buttonStyle, inputBox, fontType, divStyle} from "./styles/commentInputStyle";
+import {padding, inputStyle, buttonStyle, inputBox, fontType, divStyle, MobileInputBox} from "./styles/commentInputStyle";
 
 export default function WithoutLogin(props) {
+    const fetchData = useContext(DataContext);
     return (
-        <div style={inputBox}>
+        <div style={fetchData.isTabletOrMobile ? MobileInputBox : inputBox}>
             <form onSubmit={props.handleSubmit}>
                 <p style= {fontType}>Please pick an image (only image format is accepted):</p>
                 <input style={inputStyle} type="file" id="myFile" name="filename" onChange={props.handleImageChange} accept="image/*"/>
@@ -12,7 +15,7 @@ export default function WithoutLogin(props) {
                 <textarea  value={props.comment} onChange={props.handleChange} placeholder={props.text} required style={inputStyle}></textarea>
                 <div >
                     <div>
-                    <p style= {fontType}>or enter your name:</p>
+                    <p style= {fontType}>and enter your name:</p>
                     <span>
                         <input type="text" value={props.name} onChange={props.handleNameChange} placeholder="Name" required style={inputStyle}></input>
                     </span> 
@@ -23,7 +26,7 @@ export default function WithoutLogin(props) {
                 </div>
             </form> 
             <form onSubmit={props.handleLogin}>
-                <p style= {headingStyle}>Login with JotForm Account</p>
+                <p style= {headingStyle}>or Login with JotForm Account</p>
                 <p style= {fontType}>Please type your username:</p>
                 <input type="text" value={props.username} onChange={props.handleUsernameChange} placeholder="Name" required style={inputStyle}></input>
                 <div >
